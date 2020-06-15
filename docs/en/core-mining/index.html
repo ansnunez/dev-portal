@@ -117,8 +117,8 @@ New DS difficulty = Current DS Difficulty + (DS PoW Submissions - NUM_DS_ELECTIO
 The rationale behind this is we changed the method to calculate target boundary from 'POW_BOUNDARY_N_DIVIDED_START'. When the difficulty under 'POW_BOUNDARY_N_DIVIDED_START', every time we increase difficulty, we put one more '0' at the MSB of target boundary, but if difficulty exceed 'POW_BOUNDARY_N_DIVIDED_START', we put '0's at the LSB of the target boundary.<br>
 The implementation can be found in function DifficultyLevelInIntDevided.<br>
 Here is the bench mark of the hash power required if POW_BOUNDARY_N_DIVIDED_START is 32 and POW_BOUNDARY_N_DIVIDED_START is 1, 2, 4, 6, 8<br>
-<img src="core/features/difficulty-adjustment/image01.png" alt="image01">
-<img src="core/features/difficulty-adjustment/image02.png" alt="image02"></p>
+<img src="../assets/core/features/difficulty-adjustment/image01.png" alt="image01">
+<img src="../assets/core/features/difficulty-adjustment/image02.png" alt="image02"></p>
 <h3><a class="anchor" aria-hidden="true" id="reference-1"></a><a href="#reference-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Reference</h3>
 <ol>
 <li><a href="https://mybinder.org/v2/gh/deepgully/jupyter/master?filepath=Zilliqa%2Fdifficulty.ipynb">Difficulty divide</a></li>

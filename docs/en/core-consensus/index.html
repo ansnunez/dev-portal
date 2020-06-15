@@ -85,7 +85,7 @@ For a more theoretical description of the consensus protocol itself, refer to th
 </table>
 <h3><a class="anchor" aria-hidden="true" id="state-machine"></a><a href="#state-machine" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>State Machine</h3>
 <p>The consensus protocol is implemented across two classes: <code>ConsensusLeader</code> and <code>ConsensusBackup</code>. The diagram below shows the state transitions for both leader and backup.</p>
-<p><img src="core/features/consensus-protocol/image01.jpg" alt="image01"></p>
+<p><img src="../assets/core/features/consensus-protocol/image01.jpg" alt="image01"></p>
 <h4><a class="anchor" aria-hidden="true" id="initial-state"></a><a href="#initial-state" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Initial State</h4>
 <p>The <code>INITIAL</code> state is usually when the object for each class is first created (e.g., see <code>DirectoryService::RunConsensusOnDSBlockWhenDSPrimary</code>).</p>
 <h4><a class="anchor" aria-hidden="true" id="announcement-and-commitment-phase"></a><a href="#announcement-and-commitment-phase" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Announcement and Commitment Phase</h4>
@@ -191,9 +191,9 @@ H1(x) = SHA256(0x01||x)
 H2(x) = SHA256(0x11||x)
 </code></pre>
 <p>This diagram illustrates the original multisignature scheme during consensus:</p>
-<p><img src="core/features/multisignatures/image01.png" alt="image01"></p>
+<p><img src="../assets/core/features/multisignatures/image01.png" alt="image01"></p>
 <p>This diagram illustrates the modified scheme based on the auditor's proposal:</p>
-<p><img src="core/features/multisignatures/image02.png" alt="image02"></p>
+<p><img src="../assets/core/features/multisignatures/image02.png" alt="image02"></p>
 <p>After these changes, we now identify three domains during the consensus protocol. The &quot;separation&quot; per se refers to the integration of unique byte values into hash operations across different points of the consensus, to effectively carve out domains during the consensus.</p>
 <ol>
 <li><p>The first domain-separated hash function basically refers to the node submitting its PoW and its public key, or what we now refer to as the Proof-of-Possession (PoP) phase. While no behavioral change is done in the code for the PoW stage, we created a wrapper function <code>MultiSig::SignKey</code> to emphasize that by signing the public key, the node is effectively presenting proof of possessing the private key.</p></li>
