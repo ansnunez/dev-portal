@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Overview · Zilliqa Developer Portal</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Network layout"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Overview · Zilliqa Developer Portal"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ansnunez.github.io/dev-portal/"/><meta property="og:description" content="## Network layout"/><meta property="og:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><link rel="shortcut icon" href="/dev-portal/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/dev-portal/js/scrollSpy.js"></script><link rel="stylesheet" href="/dev-portal/css/main.css"/><script src="/dev-portal/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/dev-portal/en"><img class="logo" src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal"/><h2 class="headerTitleWithLogo">Zilliqa Developer Portal</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/dev-portal/docs/en/basics-intro-blockchain" target="_self">Basics</a></li><li class=""><a href="/dev-portal/docs/en/dev-started-helloworld" target="_self">Develop</a></li><li class=""><a href="/dev-portal/docs/en/mining-general-info" target="_self">Validate</a></li><li class=""><a href="/dev-portal/docs/en/staking-getting-started" target="_self">Integrate</a></li><li class="siteNavGroupActive"><a href="/dev-portal/docs/en/contribute-buildzil" target="_self">Contribute</a></li><span><li><a id="languages-menu" href="#"><img class="languages-icon" src="/dev-portal/img/language.svg" alt="Languages icon"/>English</a><div id="languages-dropdown" class="hide"><ul id="languages-dropdown-items"><li><a href="/dev-portal/docs/zh-CN/core-overview">中文</a></li></ul></div></li><script>
+        const languagesMenuItem = document.getElementById("languages-menu");
+        const languagesDropDown = document.getElementById("languages-dropdown");
+        languagesMenuItem.addEventListener("click", function(event) {
+          event.preventDefault();
+
+          if (languagesDropDown.className == "hide") {
+            languagesDropDown.className = "visible";
+          } else {
+            languagesDropDown.className = "hide";
+          }
+        });
+      </script></span></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Core protocol design</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Contribute</h3><ul class=""><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Contribution guide</h4><ul><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/contribute-buildzil">Building Zilliqa</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/contribute-guidelines">Coding and contribution guidelines</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/contribute-bug-bounty">contribute-bug-bounty</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Core protocol design</h4><ul><li class="navListItem navListItemActive"><a class="navItem" href="/dev-portal/docs/en/core-overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-consensus">Consensus</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-network">Network communication and topographies</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-messaging">Messaging</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-data">Data layer</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-directory-service">Directory service</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-shard">Shard node</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-lookup">Lookup</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-mining">Mining</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-mitigation-measures">Mitigation measures</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-tools">Tools</a></li></ul></div></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Overview</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="network-layout"></a><a href="#network-layout" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Network layout</h2>
+<p>The image below shows all the different components that comprise the mainnet. The subsections that follow provide a brief description of each component.</p>
+<h3><a class="anchor" aria-hidden="true" id="zilliqa-network"></a><a href="#zilliqa-network" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Zilliqa network</h3>
+<p>This is composed of the miner nodes (DS and shard), both Zilliqa-owned (i.e., guard nodes) and otherwise. The mainnet is currently configured to have 600 DS committee nodes and a maximum of three 600-node shards.</p>
+<h3><a class="anchor" aria-hidden="true" id="lookup"></a><a href="#lookup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Lookup</h3>
+<p>Lookup nodes are Zilliqa-owned full nodes, which means they store all of the mined blockchain data - including state deltas, transaction bodies, and microblocks.</p>
+<p>The mainnet currently has 5 lookup nodes, each one with a specific purpose:</p>
+<ul>
+<li><code>lookup-0</code>: This lookup uploads incremental data to AWS S3 storage after every transaction epoch. It also uploads its entire persistence data after every 80th transaction epoch.</li>
+<li><code>lookup-1</code>: This lookup acts as a back-up to <code>lookup-0</code>, uploading both entire persistence and incremental data to a separate AWS S3 location.</li>
+<li><code>lookup-2</code> / <code>lookup-3</code>: These lookups act as upper seeds to <code>level2lookup</code> seed nodes. As upper seeds, they process requests from these seed nodes, including transaction creation and data fetching. Transaction creation requests are dispatched by these lookups to the Zilliqa Network nodes.</li>
+<li><code>lookup-4</code>: This lookup acts as an upper seed to <code>newlookup</code> seed nodes. It provides similar services as <code>lookup-2</code> and <code>lookup-3</code>.</li>
+</ul>
+<p>JSON queries are generally not routed to these lookups, to avoid overloading them.</p>
+<h3><a class="anchor" aria-hidden="true" id="level2lookup"></a><a href="#level2lookup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Level2lookup</h3>
+<p><code>Level2lookup</code> nodes are essentially seed or archival nodes, i.e., full nodes whose primary purpose is the storage of blockchain data, which they receive from the Zilliqa Network through the multipliers. The mainnet API for JSON queries is configured to use these nodes. There are currently 15 <code>level2lookup</code> nodes in the mainnet.</p>
+<p>Additionally, <code>level2lookup-10</code> to <code>level2lookup-14</code> are used by miners for syncing until the vacuous epoch, after which these <code>level2lookup</code> nodes also provide the signal to start PoW mining.</p>
+<h3><a class="anchor" aria-hidden="true" id="newlookup"></a><a href="#newlookup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Newlookup</h3>
+<p><code>Newlookup</code> nodes are also seed nodes, and are intended for use by our partner exchanges. Private API endpoints are assigned to these nodes so that exchanges can perform JSON queries. <code>Newlookup</code> nodes are scaled up or down in the mainnet according to our needs.</p>
+<p>Exchange-hosted seed nodes also fall under the category of <code>newlookup</code>.</p>
+<h3><a class="anchor" aria-hidden="true" id="multiplier"></a><a href="#multiplier" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Multiplier</h3>
+<p>A multiplier is a special node whose purpose is to receive data from Zilliqa Network nodes, and then to re-transmit that data to a list of nodes that are registered with it. The mainnet currently has 5 multipliers, with the following assignments normally done:</p>
+<ul>
+<li><code>multiplier-0</code>: Assigned to transmit data to <code>level2lookup-0</code> to <code>level2lookup-4</code>. Usually also assigned after bootstrap to <code>newlookup-0</code> to <code>newlookup-1</code>.</li>
+<li><code>multiplier-1</code>: Assigned to transmit data to <code>level2lookup-5</code> to <code>level2lookup-9</code>. Usually also assigned after bootstrap to <code>newlookup-2</code> to <code>newlookup-4</code>.</li>
+<li><code>multiplier-2</code>: Assigned to transmit data to <code>level2lookup-10</code> to <code>level2lookup-14</code>.</li>
+<li><code>multiplier-3</code> / <code>multiplier-4</code>: Usually configured after bootstrap to transmit data to exchange-hosted seed nodes.</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="epoch-architecture"></a><a href="#epoch-architecture" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Epoch architecture</h2>
+<h2><a class="anchor" aria-hidden="true" id="general-node-operation"></a><a href="#general-node-operation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>General node operation</h2>
+<p>A Zilliqa node requires the following information during launch:</p>
+<ul>
+<li>Schnorr key pair</li>
+<li>IP address and listening port</li>
+<li>Sync type</li>
+<li>Whether to retrieve persistence from S3</li>
+</ul>
+<p>Most other operational parameters are defined in the file <code>constants.xml</code>.</p>
+<p>During launch, a node will assume its identity as follows:</p>
+<ul>
+<li>New, shard, or DS node based on sync type and bootstrap conditions (e.g., <code>DSInstructionType::SETPRIMARY</code>)</li>
+<li>DS or shard guard node if <code>GUARD_MODE=true</code> and public key is in <code>ds_guard</code> or <code>shard_guard</code> list in <code>constants.xml</code></li>
+<li>Lookup node if <code>LOOKUP_NODE_MODE=true</code></li>
+<li>Seed node if <code>LOOKUP_NODE_MODE=true</code> and <code>ARCHIVAL_LOOKUP=true</code></li>
+</ul>
+<p>A node will generally do the following upon startup:</p>
+<ul>
+<li>Start the incoming and outgoing message queue managing threads</li>
+<li>Populate some information (e.g., key and IP, list of guard nodes, list of initial DS committee nodes)</li>
+<li>Set up the persistence (e.g., retrieve data from S3)</li>
+<li>Sync up according to sync type specified, and continue operation from there</li>
+</ul>
+<p>Refer to the other sections for in-depth description of the operation of various features.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/dev-portal/docs/en/contribute-bug-bounty"><span class="arrow-prev">← </span><span>contribute-bug-bounty</span></a><a class="docs-next button" href="/dev-portal/docs/en/core-consensus"><span>Consensus</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#network-layout">Network layout</a><ul class="toc-headings"><li><a href="#zilliqa-network">Zilliqa network</a></li><li><a href="#lookup">Lookup</a></li><li><a href="#level2lookup">Level2lookup</a></li><li><a href="#newlookup">Newlookup</a></li><li><a href="#multiplier">Multiplier</a></li></ul></li><li><a href="#epoch-architecture">Epoch architecture</a></li><li><a href="#general-node-operation">General node operation</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/dev-portal/" class="nav-home"><img src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal" width="66" height="70"/></a><div><h5>Links</h5><a href="https://www.github.com/Zilliqa" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://blog.zilliqa.com/" target="_blank" rel="noreferrer noopener">Medium</a><a href="https://twitter.com/zilliqa" target="_blank" rel="noreferrer noopener">Twitter</a><a href="https://discord.gg/XMRE9tt" target="_blank" rel="noreferrer noopener">Discord</a><a href="https://www.youtube.com/channel/UCvinnFbf0u71cajoxKcfZIQ" target="_blank" rel="noreferrer noopener">YouTube</a></div></section><section class="copyright">Copyright © 2020 Zilliqa Research Pte. Ltd.</section></footer></div></body></html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Lookup · Zilliqa Developer Portal</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## API Server"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Lookup · Zilliqa Developer Portal"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ansnunez.github.io/dev-portal/"/><meta property="og:description" content="## API Server"/><meta property="og:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><link rel="shortcut icon" href="/dev-portal/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/dev-portal/js/scrollSpy.js"></script><link rel="stylesheet" href="/dev-portal/css/main.css"/><script src="/dev-portal/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/dev-portal/en"><img class="logo" src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal"/><h2 class="headerTitleWithLogo">Zilliqa Developer Portal</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/dev-portal/docs/en/basics-intro-blockchain" target="_self">Basics</a></li><li class=""><a href="/dev-portal/docs/en/dev-started-helloworld" target="_self">Develop</a></li><li class=""><a href="/dev-portal/docs/en/mining-general-info" target="_self">Validate</a></li><li class=""><a href="/dev-portal/docs/en/staking-getting-started" target="_self">Integrate</a></li><li class="siteNavGroupActive"><a href="/dev-portal/docs/en/contribute-buildzil" target="_self">Contribute</a></li><span><li><a id="languages-menu" href="#"><img class="languages-icon" src="/dev-portal/img/language.svg" alt="Languages icon"/>English</a><div id="languages-dropdown" class="hide"><ul id="languages-dropdown-items"><li><a href="/dev-portal/docs/zh-CN/core-lookup">中文</a></li></ul></div></li><script>
+        const languagesMenuItem = document.getElementById("languages-menu");
+        const languagesDropDown = document.getElementById("languages-dropdown");
+        languagesMenuItem.addEventListener("click", function(event) {
+          event.preventDefault();
+
+          if (languagesDropDown.className == "hide") {
+            languagesDropDown.className = "visible";
+          } else {
+            languagesDropDown.className = "hide";
+          }
+        });
+      </script></span></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Core protocol design</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Contribute</h3><ul class=""><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Contribution guide</h4><ul><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/contribute-buildzil">Building Zilliqa</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/contribute-guidelines">Coding and contribution guidelines</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/contribute-bug-bounty">contribute-bug-bounty</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Core protocol design</h4><ul><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-consensus">Consensus</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-network">Network communication and topographies</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-messaging">Messaging</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-data">Data layer</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-directory-service">Directory service</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-shard">Shard node</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/dev-portal/docs/en/core-lookup">Lookup</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-mining">Mining</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-mitigation-measures">Mitigation measures</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-tools">Tools</a></li></ul></div></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Lookup</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="api-server"></a><a href="#api-server" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>API Server</h2>
+<h2><a class="anchor" aria-hidden="true" id="transaction-dispatch"></a><a href="#transaction-dispatch" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Transaction Dispatch</h2>
+<h3><a class="anchor" aria-hidden="true" id="steps"></a><a href="#steps" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Steps</h3>
+<ol>
+<li>User using the json rpc server sends a json to the Zilliqa api (calls the CreateTransaction function). The transaction json contains essential information about the transaction.</li>
+<li>The transaction json is then validated and then converted into the cpp class format.</li>
+<li>The lookup node then decides the shard of the txn to send to and stores the txn into a map. The key of the map is the shard number.</li>
+<li>After the lookup receives a ds or tx block, it dispatches these txns to the corresponding shards.</li>
+<li>After it reaches a shard, the shard node again validates this txn and then adds it to the txn mempool.</li>
+<li>The shard leader then proposes the list of txns to be included in the microblock, the other shard nodes then verify the corresponding txns.</li>
+<li>If the microblock is then included in the final block, the nodes commits the txns and sends the txn receipts to the lookup.</li>
+<li>The lookup use this receipt to tell the user the status of the txn.</li>
+</ol>
+<p><img src="core/features/transaction-dispatch/image01.png" alt="image01"></p>
+<h2><a class="anchor" aria-hidden="true" id="-incremental-db"></a><a href="#-incremental-db" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a># Incremental DB</h2>
+<p>This document describes the purpose behind incremental-db which levereges AWS S3 service and its implementation details.</p>
+<h3><a class="anchor" aria-hidden="true" id="description"></a><a href="#description" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Description</h3>
+<ul>
+<li>The goal is to provide an efficient way to miners and seed nodes to get blockchain data in order to join the network.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="purpose"></a><a href="#purpose" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Purpose</h3>
+<ul>
+<li>Basic idea would have been to upload or sync entire persistence to S3 bucket every TxEpoch. And new nodes fetch the entire persistence from S3 bucket.</li>
+<li>This would have been alright for all databases except for leveldb <code>state</code> because aws-cli sync for <code>state</code> database will result in uploading all file in the db which will be time consuming and not bandwidth efficient.</li>
+<li>Uploading of <code>state</code> leveldb for every TxEpoch is bottle neck and solution is to use <code>incremental-db</code>.</li>
+</ul>
+<p><strong>Note:</strong> <em>Its practically possible that all files in <code>stateDB</code> gets updated every TxEpoch if transactions in that epoch changes states of addresses which updates TrieDB across all files in levelDB.</em></p>
+<h3><a class="anchor" aria-hidden="true" id="building-blocks"></a><a href="#building-blocks" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Building Blocks</h3>
+<p>Following two scripts are main building blocks:</p>
+<h4><a class="anchor" aria-hidden="true" id="upload-incremental-db-script"></a><a href="#upload-incremental-db-script" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Upload Incremental DB script</h4>
+<p>This script <code>uploadIncrDB.py</code> runs on one of the lookup node. It performs following steps:</p>
+<ul>
+<li><p>Add Lock file to S3 bucket - <code>incremental</code></p></li>
+<li><p>Perform sync between local <code>persistence</code> on lookup node and <code>incremental\peristence</code> on S3 every TxEpoch. However, syncing criterias differs based on TxEpoch number.
+Following are possibilities:</p>
+<ul>
+<li><p>Script startup</p>
+<ul>
+<li>Clean both buckets i.e. <code>incremental</code> and <code>statedelta</code></li>
+<li>Sync entire persistence to S3 bucket - <code>incremental</code> (including <code>state, stateroot, txBlocks, txnBodies, txnBodiesTmp, microblock, etc</code> ( every thing that exists in persistence folder ) at every 10th vacuous epoch.</li>
+<li>Clean all statedeltas from S3 bucket - <code>statedelta</code></li>
+</ul></li>
+<li><p>Every 10th DS Epoch (first txEpoch from 10th DS epoch)</p>
+<ul>
+<li>Sync entire persistence to S3 bucket - <code>incremental</code> (including <code>state, stateroot, txBlocks, txnBodies, txnBodiesTmp, microblock, etc</code> ( every thing that exists in persistence folder ).</li>
+<li>Clean all statedeltas from S3 bucket - <code>statedelta</code></li>
+</ul></li>
+<li><p>Any other txEpoch</p>
+<ul>
+<li>Sync entire persistence to S3 bucket - <code>incremental</code> (excluding <code>state, stateroot, contractCode, contractStateData, contractStateIndex</code>) every txEpoch.</li>
+<li>If <code>current txBlkNum == vacuous epoch + 1</code>
+(i.e. first txBlock in current DS epoch e.g 100, 200, 300, ... ), we don't need to upload statedelta diff here. Instead complete stateDelta db is uploaded to S3 bucket - <code>statedelta</code> ( e.g. <code>stateDelta_100.tar.gz</code> ).
+Else upload the statedelta diff to S3 bucket - <code>statedelta</code> (e.g. <code>stateDelta_101.tar.gz, stateDelta_101.tar.gz, .... stateDelta_199.tar.gz</code>).</li>
+</ul></li>
+</ul></li>
+<li><p>Remove Lock file from S3 - <code>incremental</code>.</p></li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="download-incremental-db-script"></a><a href="#download-incremental-db-script" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Download Incremental DB script</h4>
+<p>This script <code>downloadIncrDB.py</code> is first ran by every miner node or seed node to get latest block chain data. It perform following steps:</p>
+<ul>
+<li><p>Check if Lock file existed. Wait until no Lock file is found. Otherwise go to Step 2.</p></li>
+<li><p>Clean existing persistence, if any. And download Entire Persistence from S3 bucket - <code>incremental</code>.
+If node is <code>miner</code>, <code>microblocks</code> and <code>txBodies</code> are not downloaded.</p></li>
+<li><p>Check if Lock file existed. If yes, start again with step 1).</p></li>
+<li><p>Clean any <code>StateDeltasFromS3</code> folder. Download all statedeltas from S3 bucket - <code>statedelta</code> to <code>StateDeltasFromS3</code>.</p></li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="joining-node"></a><a href="#joining-node" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Joining node</h4>
+<ul>
+<li><p>Node uses the <code>downloadIncrDB.py</code> to download the <code>peristence</code> from S3 bucket <code>incrementalDB</code> and all the state-deltas from S3 bucket <code>statedelta</code> to <code>StateDeltasFromS3</code>.</p></li>
+<li><p>Node startsup with downloaded <code>peristence</code> and starts syncup. After this, node has <strong>base state</strong> <code>say X</code>.</p></li>
+<li><p>Node then recreates latest state using state-deltas from <code>StateDeltasFromS3</code> (i.e.  <code>stateDelta_101.tar.gz, stateDelta_101.tar.gz, .... stateDelta_199.tar.gz, stateDelta_200.tar.gz, stateDelta_201.tar.gz, stateDelta_201.tar.gz, .... stateDelta_299.tar.gz</code> ).</p>
+<p>Final State <code>Y = X + x1 + x2 + ... + x99 + x100 + x101 + x102 + ...</code></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="multiplier"></a><a href="#multiplier" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Multiplier</h2>
+<p>This section describes the purpose of multiplier and some implementation details</p>
+<h3><a class="anchor" aria-hidden="true" id="purpose-1"></a><a href="#purpose-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Purpose</h3>
+<ul>
+<li>Node types <code>newlookup</code> and <code>level2lookup</code>  need new blocks data every time new txBlock is mined in order to be synced with progressing network.</li>
+<li>This new block data include <code>DSBlock</code>, <code>FinalBlock</code>, <code>Microblocks</code> and <code>Transactions</code> for new epoch.</li>
+<li>Multiplier plays a role of receiving above messages from network and forwarding them to <code>newlookup</code> and/or <code>level2lookup</code>.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="brief"></a><a href="#brief" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Brief</h3>
+<ul>
+<li>Mainnet runs with <code>5</code> multiplier where each multiplier is configured to forward the messages to those nodes <code>&lt;IP:PORT&gt;</code> registered with them.</li>
+<li>Every multiplier say <code>multiplier-0</code> has corresponding <code>multiplier-0-downstreams.txt</code> which contains list of <code>&lt;IP:PORT&gt;</code> of nodes receiving forwarded messages.</li>
+<li>All <code>level2lookup</code> nodes are automatically registered with multiplier during bootstrap.</li>
+<li>All newly launched zilliqa controlled <code>newlookup</code> and exchanges <code>seed</code> nodes needs to be registered with any of the multipliers.</li>
+<li>Network nodes are aware of multiplier's <code>IP:PORT</code> from constants.xml since multipliers are always launced during bootstrap.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="details"></a><a href="#details" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Details</h3>
+<ul>
+<li>Multiplier is a simple go program which basically listens at a particular port for incoming messages and forwards the message to forwarding list.</li>
+<li>It checks for any update in <code>multiplier-x-downstreams.txt</code> for new or deleted <code>&lt;IP:PORT&gt;</code> periodically. This enables us to add new seed nodes anytime.</li>
+<li>It uses hashes to ignore duplicate messsages from being received and forwarded.</li>
+<li>It retries sending message to destination <code>&lt;IP:PORT&gt;</code> for error <code>i/o timeout</code> which could happen due to network glitches on either ends.</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="websocket-server"></a><a href="#websocket-server" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Websocket Server</h2>
+<p>This page describes the protocol, between the Zilliqa Websocket Server and the sdk client, for querying subscription and message pushing.</p>
+<h3><a class="anchor" aria-hidden="true" id="feature-workflow"></a><a href="#feature-workflow" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Feature workflow</h3>
+<p>Client can subscribe their interested topics or unsubscribe certain topic by sending query, if the query failed they will normally be informed immediately with related error message. For every Tx block(epoch), the subscribed content will be sent from server to each client in one message where an array contains all their subscribed topic if updated, which we name <strong>notification</strong>.</p>
+<h3><a class="anchor" aria-hidden="true" id="supported-query"></a><a href="#supported-query" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Supported query</h3>
+<p>The following types of data are the current main focus that we want to consider to be supported by ZWS:</p>
+<ul>
+<li><strong>New TxBlock</strong>. Which includes TxBlock recently generated and hashes of all the transaction being processed within this block.</li>
+<li><strong>Event log</strong>. Which includes all the event log generated for interested contract address</li>
+<li><strong>Unsubscribe</strong>. Which tells the server to unsubscribe certain topic for the client</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="exception-handling"></a><a href="#exception-handling" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Exception handling</h3>
+<p>Usually an <strong>error message</strong> will be responded to the client if the query failed, it may looks like</p>
+<pre><code class="hljs css language-json">{
+  <span class="hljs-attr">"type"</span>:<span class="hljs-string">"Error"</span>,
+  <span class="hljs-attr">"error"</span>:<span class="hljs-string">"..."</span>
+}
+</code></pre>
+<p>The following error messages will be applied to all kinds of query if being invalid:</p>
+<ul>
+<li><strong>invalid query field</strong>. Which tells the client if the query is invalid, it could be not found, empty, malformed, or not available</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="message-encoding"></a><a href="#message-encoding" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Message encoding</h3>
+<p>For convention, we still use JSON as our encoding format.</p>
+<p>The epoch message will be presented in this way:</p>
+<pre><code class="hljs css language-json">{
+  <span class="hljs-attr">"type"</span>:<span class="hljs-string">"notification"</span>,
+  <span class="hljs-attr">"values"</span>:[
+    {
+      <span class="hljs-attr">"query"</span>:<span class="hljs-string">"..."</span>,
+      <span class="hljs-attr">"value"</span>:<span class="hljs-string">"..."</span>
+    },
+    {
+      <span class="hljs-attr">"query"</span>:<span class="hljs-string">"..."</span>,
+      <span class="hljs-attr">"value"</span>:<span class="hljs-string">"..."</span>
+    }
+  ]
+}
+</code></pre>
+<p>The followings are case by case for each subscription:</p>
+<h4><a class="anchor" aria-hidden="true" id="subscribe-new-block"></a><a href="#subscribe-new-block" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Subscribe New Block</h4>
+<h5><a class="anchor" aria-hidden="true" id="query-message"></a><a href="#query-message" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>query message</h5>
+<pre><code class="hljs css language-json">{
+  <span class="hljs-attr">"query"</span>:<span class="hljs-string">"NewBlock"</span>,
+}
+</code></pre>
+<h5><a class="anchor" aria-hidden="true" id="response-message"></a><a href="#response-message" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>response message</h5>
+<p>Once succsfully subscribed, server will echo the query message to the client, otherwise will return error message.</p>
+<p>Special error message:</p>
+<ul>
+<li><strong>NA</strong>`</li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="expected-field-in-notification"></a><a href="#expected-field-in-notification" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>expected field in notification</h4>
+<pre><code class="hljs css language-json">{
+  <span class="hljs-attr">"query"</span>:<span class="hljs-string">"NewBlock"</span>,
+  <span class="hljs-attr">"value"</span>:{
+    <span class="hljs-attr">"TxBlock"</span>:{
+      <span class="hljs-comment">// same as the json object by quering jsonrpc for `GetTxBlock`</span>
+    },
+    <span class="hljs-attr">"TxHashes"</span>:[
+      <span class="hljs-comment">// same as the json object by querying jsonrpc for `GetTransactionsForTxBlock`</span>
+    ]
+  }
+}
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="subscribe-event-log"></a><a href="#subscribe-event-log" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Subscribe Event Log</h4>
+<h5><a class="anchor" aria-hidden="true" id="query-message-1"></a><a href="#query-message-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>query message</h5>
+<pre><code class="hljs css language-json">{
+  <span class="hljs-attr">"query"</span>:<span class="hljs-string">"EventLog"</span>,
+  <span class="hljs-attr">"addresses"</span>:[
+    <span class="hljs-string">"0x0000000000000000000000000000000000000000"</span>,
+    <span class="hljs-string">"0x1111111111111111111111111111111111111111"</span>
+  ]
+}
+</code></pre>
+<h5><a class="anchor" aria-hidden="true" id="response-message-1"></a><a href="#response-message-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>response message</h5>
+<p>Once succesfully subscribed, server will echo the query message to the client,
+otherwise will return error message.</p>
+<p>Special error message:</p>
+<ul>
+<li><strong>invalid addresses field</strong>, which tells the client the addresses field is invalid, it could either be not found, malformed or empty</li>
+<li><strong>no contract found in list</strong>, which tells the client the addresses provided are all of non contract</li>
+</ul>
+<h5><a class="anchor" aria-hidden="true" id="expected-field-in-notification-1"></a><a href="#expected-field-in-notification-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>expected field in notification</h5>
+<pre><code class="hljs css language-json">{
+  <span class="hljs-attr">"query"</span>:<span class="hljs-string">"EventLog"</span>,
+  <span class="hljs-attr">"value"</span>:
+  [
+    {
+      <span class="hljs-attr">"address"</span>:<span class="hljs-string">"0x0000000000000000000000000000000000000000"</span>,
+      <span class="hljs-attr">"event_logs"</span>:[
+        {
+          <span class="hljs-attr">"_eventname"</span>:<span class="hljs-string">"foo1"</span>,
+          <span class="hljs-attr">"params"</span>:[
+            {
+              <span class="hljs-attr">"vname"</span>:<span class="hljs-string">"bar1"</span>,
+              <span class="hljs-attr">"type"</span>:<span class="hljs-string">"String"</span>,
+              <span class="hljs-attr">"value"</span>:<span class="hljs-string">"abc"</span>
+            },
+            {
+              <span class="hljs-attr">"vname"</span>:<span class="hljs-string">"bar2"</span>,
+              <span class="hljs-attr">"type"</span>:<span class="hljs-string">"ByStr32"</span>,
+              <span class="hljs-attr">"value"</span>:<span class="hljs-string">"0x0000000000000000000000000000000000000001"</span>
+            }
+          ]
+        },
+      ]
+    }
+  ]
+}
+</code></pre>
+<p>Notice that for address <code>0x1111111111111111111111111111111111111111</code> is not presented in the message since it doesn't have any event log released in this epoch.</p>
+<h4><a class="anchor" aria-hidden="true" id="unsubscribe"></a><a href="#unsubscribe" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Unsubscribe</h4>
+<h5><a class="anchor" aria-hidden="true" id="query-message-2"></a><a href="#query-message-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>query message</h5>
+<pre><code class="hljs css language-json">{
+  <span class="hljs-attr">"query"</span>:<span class="hljs-string">"Unsubscribe"</span>,
+  <span class="hljs-attr">"type"</span>:<span class="hljs-string">"EventLog"</span>
+}
+</code></pre>
+<h5><a class="anchor" aria-hidden="true" id="response-message-2"></a><a href="#response-message-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>response message</h5>
+<p>Once succesfully ubsubscribed, server will echo the query message to the client,
+otherwise will return error message.</p>
+<p>Special error message:</p>
+<ul>
+<li><strong>invalid type field</strong>, which tells the client the type field is invalid, if could either be not found, malformed or not available.</li>
+</ul>
+<h5><a class="anchor" aria-hidden="true" id="expected-field-in-notification-2"></a><a href="#expected-field-in-notification-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>expected field in notification</h5>
+<pre><code class="hljs css language-json">{
+  <span class="hljs-attr">"query"</span>:<span class="hljs-string">"Unsubscribe"</span>,
+  <span class="hljs-attr">"value"</span>:[<span class="hljs-string">"NewBlock"</span>, <span class="hljs-string">"EventLog"</span>]
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="example"></a><a href="#example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h3>
+<p>Client subscribe NewBlock:</p>
+<pre><code class="hljs css language-json">{
+ <span class="hljs-attr">"query"</span>:<span class="hljs-string">"NewBlock"</span>
+}
+</code></pre>
+<p>Client subscribe EventLog:</p>
+<pre><code class="hljs css language-json">{
+ <span class="hljs-attr">"query"</span>:<span class="hljs-string">"EventLog"</span>,
+ <span class="hljs-attr">"addresses"</span>:[
+   <span class="hljs-string">"0x000000000000000000000000000000000"</span>,
+   <span class="hljs-string">"0x111111111111111111111111111111111"</span>
+ ]
+}
+</code></pre>
+<p>Client unsubscribe NewBlock:</p>
+<pre><code class="hljs css language-json">{
+  <span class="hljs-attr">"query"</span>:<span class="hljs-string">"Unsubscribe"</span>,
+  <span class="hljs-attr">"type"</span>:<span class="hljs-string">"NewBlock"</span>
+}
+</code></pre>
+<p>Notification:</p>
+<pre><code class="hljs css language-json">{
+  <span class="hljs-attr">"type"</span>:<span class="hljs-string">"notification"</span>,
+  <span class="hljs-attr">"values"</span>:[
+    {
+      <span class="hljs-attr">"query"</span>:<span class="hljs-string">"NewBlock"</span>,
+      <span class="hljs-attr">"value"</span>:{
+        <span class="hljs-attr">"TxBlock"</span>:{
+          <span class="hljs-attr">"body"</span>:{
+            <span class="hljs-attr">"BlockHash"</span>:<span class="hljs-string">"b2214da8e25efbd4291f85016094824a8fcd46075d06e365282d39ee4ba8ca24"</span>,
+            <span class="hljs-attr">"HeaderSign"</span>:<span class="hljs-string">"E276EFC8B01AC51804272AAAB4FC59DD96B08B3988F9DA6BED28657CC74A1A609E73B203AA58664EAEB4A960FFEF3D636A7691EBD7F89A03CEFEB12FA8797615"</span>,
+            <span class="hljs-attr">"MicroBlockInfos"</span>:[
+              {
+                <span class="hljs-attr">"MicroBlockHash"</span>:<span class="hljs-string">"9e811581454211ea5a757678460bb62a73860d1be9e5b8b805d3b176d4d92451"</span>,
+                <span class="hljs-attr">"MicroBlockShardId"</span>:<span class="hljs-number">0</span>,
+                <span class="hljs-attr">"MicroBlockTxnRootHash"</span>:<span class="hljs-string">"eec45db6a9b70463a8ac32bec853bcb5fe1d73ffec1244e1cc0427036483bbfa"</span>
+              },
+              {
+                <span class="hljs-attr">"MicroBlockHash"</span>:<span class="hljs-string">"066ff187ff392a9a9cd430a248552f10759f98e0ac530015091ffa430d68ba83"</span>,
+                <span class="hljs-attr">"MicroBlockShardId"</span>:<span class="hljs-number">1</span>,
+                <span class="hljs-attr">"MicroBlockTxnRootHash"</span>:<span class="hljs-string">"0000000000000000000000000000000000000000000000000000000000000000"</span>
+              },
+              {
+                <span class="hljs-attr">"MicroBlockHash"</span>:<span class="hljs-string">"250091b5c626143bde230813c527f77a007303e6dc3502642c7d468bc2d064e4"</span>,
+                <span class="hljs-attr">"MicroBlockShardId"</span>:<span class="hljs-number">2</span>,
+                <span class="hljs-attr">"MicroBlockTxnRootHash"</span>:<span class="hljs-string">"0000000000000000000000000000000000000000000000000000000000000000"</span>
+              }
+            ]
+          },
+          <span class="hljs-attr">"header"</span>:{
+            <span class="hljs-attr">"BlockNum"</span>:<span class="hljs-string">"15"</span>,
+            <span class="hljs-attr">"DSBlockNum"</span>:<span class="hljs-string">"1"</span>,
+            <span class="hljs-attr">"GasLimit"</span>:<span class="hljs-string">"15000000"</span>,
+            <span class="hljs-attr">"GasUsed"</span>:<span class="hljs-string">"1"</span>,
+            <span class="hljs-attr">"MbInfoHash"</span>:<span class="hljs-string">"4b2d20a0bcb382ad2e2560791ed90ed21100e8e84ebac63d62d3c0b1a3fb11fe"</span>,
+            <span class="hljs-attr">"MinerPubKey"</span>:<span class="hljs-string">"0x02FC9ED69524A23AEFCB85B8A36C998F512C0512C6932DED74680A044F9D3EBC95"</span>,
+            <span class="hljs-attr">"NumMicroBlocks"</span>:<span class="hljs-number">3</span>,
+            <span class="hljs-attr">"NumTxns"</span>:<span class="hljs-number">1</span>,
+            <span class="hljs-attr">"PrevBlockHash"</span>:<span class="hljs-string">"5bda21605e7ea9404c58a40eebe99563adf330bab5b39e7438f8e4db28607b37"</span>,
+            <span class="hljs-attr">"Rewards"</span>:<span class="hljs-string">"1000000000"</span>,
+            <span class="hljs-attr">"StateDeltaHash"</span>:<span class="hljs-string">"2f878030ab9b0a211c1e584e140707c79d62d067390bfe3ccaf08fdaeaad2229"</span>,
+            <span class="hljs-attr">"StateRootHash"</span>:<span class="hljs-string">"94abb63e27984f46e914db2601de6af2048a3bf72f69eaac34421b7dfbd34a82"</span>,
+            <span class="hljs-attr">"Timestamp"</span>:<span class="hljs-string">"1572512230807870"</span>,
+            <span class="hljs-attr">"Version"</span>:<span class="hljs-number">1</span>
+          }
+        }
+      },
+      <span class="hljs-attr">"TxHashes"</span>:[
+        [<span class="hljs-string">"1beb32a5435e993aa3025a70d8a5e71df43c10e2fe3f6ef832d1a5c371a63852"</span>],
+        [],
+        []
+      ]
+    },
+    {
+      <span class="hljs-attr">"query"</span>:<span class="hljs-string">"EventLog"</span>,
+      <span class="hljs-attr">"value"</span>:[
+        {
+          <span class="hljs-attr">"address"</span>:<span class="hljs-string">"0x0000000000000000000000000000000000000000"</span>,
+          <span class="hljs-attr">"event_logs"</span>:[
+            {
+              <span class="hljs-attr">"_eventname"</span>:<span class="hljs-string">"foo1"</span>,
+              <span class="hljs-attr">"params"</span>:[
+                {
+                  <span class="hljs-attr">"vname"</span>:<span class="hljs-string">"bar1"</span>,
+                  <span class="hljs-attr">"type"</span>:<span class="hljs-string">"String"</span>,
+                  <span class="hljs-attr">"value"</span>:<span class="hljs-string">"abc"</span>
+                },
+                {
+                  <span class="hljs-attr">"vname"</span>:<span class="hljs-string">"bar2"</span>,
+                  <span class="hljs-attr">"type"</span>:<span class="hljs-string">"ByStr32"</span>,
+                  <span class="hljs-attr">"value"</span>:<span class="hljs-string">"0x0000000000000000000000000000000000000001"</span>
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      <span class="hljs-attr">"query"</span>:<span class="hljs-string">"Unsubscribe"</span>,
+      <span class="hljs-attr">"value"</span>:[<span class="hljs-string">"NewBlock"</span>]
+    }
+  ]
+}
+
+</code></pre>
+<p>And in the next tx block, the client won't be receiving <code>NewBlock</code> in notification</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/dev-portal/docs/en/core-shard"><span class="arrow-prev">← </span><span>Shard node</span></a><a class="docs-next button" href="/dev-portal/docs/en/core-mining"><span>Mining</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#api-server">API Server</a></li><li><a href="#transaction-dispatch">Transaction Dispatch</a><ul class="toc-headings"><li><a href="#steps">Steps</a></li></ul></li><li><a href="#-incremental-db"># Incremental DB</a><ul class="toc-headings"><li><a href="#description">Description</a></li><li><a href="#purpose">Purpose</a></li><li><a href="#building-blocks">Building Blocks</a></li></ul></li><li><a href="#multiplier">Multiplier</a><ul class="toc-headings"><li><a href="#purpose-1">Purpose</a></li><li><a href="#brief">Brief</a></li><li><a href="#details">Details</a></li></ul></li><li><a href="#websocket-server">Websocket Server</a><ul class="toc-headings"><li><a href="#feature-workflow">Feature workflow</a></li><li><a href="#supported-query">Supported query</a></li><li><a href="#exception-handling">Exception handling</a></li><li><a href="#message-encoding">Message encoding</a></li><li><a href="#example">Example</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/dev-portal/" class="nav-home"><img src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal" width="66" height="70"/></a><div><h5>Links</h5><a href="https://www.github.com/Zilliqa" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://blog.zilliqa.com/" target="_blank" rel="noreferrer noopener">Medium</a><a href="https://twitter.com/zilliqa" target="_blank" rel="noreferrer noopener">Twitter</a><a href="https://discord.gg/XMRE9tt" target="_blank" rel="noreferrer noopener">Discord</a><a href="https://www.youtube.com/channel/UCvinnFbf0u71cajoxKcfZIQ" target="_blank" rel="noreferrer noopener">YouTube</a></div></section><section class="copyright">Copyright © 2020 Zilliqa Research Pte. Ltd.</section></footer></div></body></html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Directory service · Zilliqa Developer Portal</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Operational Details (State Machine)"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Directory service · Zilliqa Developer Portal"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ansnunez.github.io/dev-portal/"/><meta property="og:description" content="## Operational Details (State Machine)"/><meta property="og:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><link rel="shortcut icon" href="/dev-portal/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/dev-portal/js/scrollSpy.js"></script><link rel="stylesheet" href="/dev-portal/css/main.css"/><script src="/dev-portal/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/dev-portal/en"><img class="logo" src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal"/><h2 class="headerTitleWithLogo">Zilliqa Developer Portal</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/dev-portal/docs/en/basics-intro-blockchain" target="_self">Basics</a></li><li class=""><a href="/dev-portal/docs/en/dev-started-helloworld" target="_self">Develop</a></li><li class=""><a href="/dev-portal/docs/en/mining-general-info" target="_self">Validate</a></li><li class=""><a href="/dev-portal/docs/en/staking-getting-started" target="_self">Integrate</a></li><li class="siteNavGroupActive"><a href="/dev-portal/docs/en/contribute-buildzil" target="_self">Contribute</a></li><span><li><a id="languages-menu" href="#"><img class="languages-icon" src="/dev-portal/img/language.svg" alt="Languages icon"/>English</a><div id="languages-dropdown" class="hide"><ul id="languages-dropdown-items"><li><a href="/dev-portal/docs/zh-CN/core-directory-service">中文</a></li></ul></div></li><script>
+        const languagesMenuItem = document.getElementById("languages-menu");
+        const languagesDropDown = document.getElementById("languages-dropdown");
+        languagesMenuItem.addEventListener("click", function(event) {
+          event.preventDefault();
+
+          if (languagesDropDown.className == "hide") {
+            languagesDropDown.className = "visible";
+          } else {
+            languagesDropDown.className = "hide";
+          }
+        });
+      </script></span></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Core protocol design</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Contribute</h3><ul class=""><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Contribution guide</h4><ul><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/contribute-buildzil">Building Zilliqa</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/contribute-guidelines">Coding and contribution guidelines</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/contribute-bug-bounty">contribute-bug-bounty</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Core protocol design</h4><ul><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-consensus">Consensus</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-network">Network communication and topographies</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-messaging">Messaging</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-data">Data layer</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/dev-portal/docs/en/core-directory-service">Directory service</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-shard">Shard node</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-lookup">Lookup</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-mining">Mining</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-mitigation-measures">Mitigation measures</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-tools">Tools</a></li></ul></div></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Directory service</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="operational-details-state-machine"></a><a href="#operational-details-state-machine" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Operational Details (State Machine)</h2>
+<h2><a class="anchor" aria-hidden="true" id="ds-mimo"></a><a href="#ds-mimo" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>DS MIMO</h2>
+<h2><a class="anchor" aria-hidden="true" id="ds-committee-multiple-in-multiple-out-ds-mimo"></a><a href="#ds-committee-multiple-in-multiple-out-ds-mimo" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>DS Committee Multiple In Multiple Out (DS MIMO)</h2>
+<h3><a class="anchor" aria-hidden="true" id="notice"></a><a href="#notice" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Notice</h3>
+<p>DS committee ejection has been superseded by <a href="ds-reputation.md">DS Reputation</a></p>
+<h3><a class="anchor" aria-hidden="true" id="usage"></a><a href="#usage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Usage</h3>
+<p>Allows <code>n</code> nodes to join and leave DS committee every DS epoch.</p>
+<h3><a class="anchor" aria-hidden="true" id="setup"></a><a href="#setup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setup</h3>
+<ol>
+<li>[DS Block header] Removal of <code>nonce</code> and <code>minerPubKey</code></li>
+<li>[DS Block header] Add <code>ordered_map&lt;PubKey, Peer&gt;</code> to represent <code>n</code> number of incoming DS members. Ordering based on <code>Pubkey</code></li>
+<li>[DS Block header] Update <code>operator==</code> to reflect changes to DS block header</li>
+<li>[DS Block header] Change <code>SIZE</code> to a member function of DS Block header as calculation of size is no longer static due to <code>n</code> number of incoming DS members</li>
+<li>[Unit test] Update unit test for DS persistence. Use <code>blocknum</code> instead of <code>nonce</code></li>
+<li>[DS Block announcement] Removal of “winner peer” as the information is now embedded inside DS block</li>
+<li>[Protobuf] Various serialization/deserialization changes to reflect new DS block structure</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="procedure"></a><a href="#procedure" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Procedure</h3>
+<ol>
+<li>Nodes submit PoWs (For Diff and DS Diff) as per the existing protocol</li>
+<li>DS leader composes DS Block
+<ul>
+<li>DS leader determines how many nodes to elect into DS committee by using <code>min(number of eligible pow submission, NUM_DS_ELECTION)</code> where <code>NUM_DS_ELECTION</code> is a constant in constants.xml</li>
+<li>Hence, number of incoming nodes ranges from 0 to <code>NUM_DS_ELECTION</code></li>
+</ul></li>
+<li>DS leader adds incoming DS members information into the map inside DS Block</li>
+<li>DS leader removes incoming DS members from <code>sortedPoWSolns</code> to ensure the incoming DS members do not get sharded into any of the shards</li>
+<li>After composing DS Block, the function returns the number of incoming DS members, to be used a later time</li>
+<li>Now, it is time to eject <code>n</code> number of (oldest) DS members from the DS committee and downgrade these to shard members</li>
+<li>DS leader manually adds the ejected members into <code>m_allPoWConns</code> and <code>sortedPoWSolns</code>
+<ul>
+<li>As downgraded members do not perform PoWs, dummy PoW solution is added in its place</li>
+<li>Dummy PoW solution in this case is calculated using <code>sha256(node’s pubkey)</code></li>
+</ul></li>
+<li>Now, it is time to compose the sharding structure. There is no major change to this portion</li>
+<li>DS Block consensus begins and is successfully completed</li>
+<li>DS leader and backups do the following
+<ul>
+<li>DS leader and backups will now do <code>UpdateDSCommitteeComposition()</code> first before doing <code>UpdateMyDSModeAndConsensusId()</code>. This is to be consistent with what the incoming members will do. Also, having such changes enable much easier calculation of <code>consensusMyID</code>. <code>UpdateMyDSModeAndConsensusId()</code> was also refactored to make it look cleaner</li>
+<li>Add <code>n</code> number of incoming DS members inside mediator DS committee data structure</li>
+<li>Pop <code>n</code> number of DS members from mediator DS committee data structure</li>
+<li>Oldest <code>n</code> members are decided by <code>(consensusID + n incoming DS members) &gt;= size of DS committee</code>. Such nodes change their mode to IDLE</li>
+<li>Other DS members increment their <code>consensusMyID</code> by <code>n</code> and update the status to either DS leader or backup (based on existing protocol)</li>
+</ul></li>
+<li>DS committee sends the DS Block and sharding structure to all PoW submitters. This message now does not include winner peer as part of the changes highlighted in setup section</li>
+<li>Incoming DS members receive the DS Block, process it, and update their DS <code>consensusMyID</code> based on ordering found in the map in the DS Block. From here onwards, these nodes are part of the DS committee</li>
+<li>Shard members process the DS Block and update the DS committee composition based on number of incoming DS member(s)</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="other-fixes"></a><a href="#other-fixes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Other fixes</h3>
+<ol>
+<li>Fixed <code>operator&lt;</code> for DS Block header</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="known-issues"></a><a href="#known-issues" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Known issues</h3>
+<ol>
+<li>Explorer displays blank information for Miner Public Key and Nonce (<a href="https://github.com/Zilliqa/Issues/issues/218">Issue 218</a>)</li>
+<li>Explorer not displaying new DS Block information such as incoming DS members and DS difficulty (<a href="https://github.com/Zilliqa/Issues/issues/218">Issue 218</a>)</li>
+<li>JSON RPC APIs need to be updated (<a href="https://github.com/Zilliqa/Issues/issues/218">Issue 218</a>)</li>
+<li>Unit test failed when checking cosig of DS Block after retrieval from LevelDB under test case <code>testBlockStorage</code></li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="ds-reputation"></a><a href="#ds-reputation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>DS Reputation</h2>
+<p>This feature is to evaluate the performance of DS nodes. The underperformed DS nodes will be kicked out of DS committee first instead of the oldest DS nodes. It can push node owners to use better hardware and network for the DS nodes, so can improve the stability and the efficiency of the blockchain consensus protocol.</p>
+<h3><a class="anchor" aria-hidden="true" id="working-mechanism"></a><a href="#working-mechanism" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Working Mechanism</h3>
+<ol>
+<li>When run DS block consensus, the performance of each DS node will be evaluated based on the rewards they got from last DS epoch until the current DS epoch.</li>
+<li>At the beginning of each DS epoch, DS leader will call &quot;DetermineByzantineNodes&quot; to find out the underperformed DS nodes based on the criteria set in constants.xml. If found underperformed ds nodes, their pubkeys will be included in DS block announcement and send to all DS backup nodes.</li>
+<li>A DS backup node receives the DS announcement, it call &quot;VerifyRemovedByzantineNodes&quot; to verify the proposed DS nodes going to remove from DS committee are really unerperformed. If the check pass, it will accept it and continue the consensus protocol. Otherwise, it will refuse to commit to the announcement made by the leader. If more than 1/3 of the nodes in the DS committee does not commit to the announcement, view change will be triggered.</li>
+<li>After the DS block consensus is done, the selected underperformed DS nodes will be removed from the DS committee and the blockchain network, they need to do PoW again to rejoin the network. The shard nodes which finished DS PoW will join DS committee to replace the removed DS nodes, hence, can keep the size of the DS committee the same.</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="reference"></a><a href="#reference" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Reference</h3>
+<ol>
+<li><a href="https://github.com/nnamon/zilliqa-research/blob/master/ds_reputation/proposal.md">DS Reputation Proposal</a></li>
+<li><a href="https://github.com/Zilliqa/Zilliqa/pull/1587">PR 1587</a></li>
+</ol>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/dev-portal/docs/en/core-data"><span class="arrow-prev">← </span><span>Data layer</span></a><a class="docs-next button" href="/dev-portal/docs/en/core-shard"><span>Shard node</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#operational-details-state-machine">Operational Details (State Machine)</a></li><li><a href="#ds-mimo">DS MIMO</a></li><li><a href="#ds-committee-multiple-in-multiple-out-ds-mimo">DS Committee Multiple In Multiple Out (DS MIMO)</a><ul class="toc-headings"><li><a href="#notice">Notice</a></li><li><a href="#usage">Usage</a></li><li><a href="#setup">Setup</a></li><li><a href="#procedure">Procedure</a></li><li><a href="#other-fixes">Other fixes</a></li><li><a href="#known-issues">Known issues</a></li></ul></li><li><a href="#ds-reputation">DS Reputation</a><ul class="toc-headings"><li><a href="#working-mechanism">Working Mechanism</a></li><li><a href="#reference">Reference</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/dev-portal/" class="nav-home"><img src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal" width="66" height="70"/></a><div><h5>Links</h5><a href="https://www.github.com/Zilliqa" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://blog.zilliqa.com/" target="_blank" rel="noreferrer noopener">Medium</a><a href="https://twitter.com/zilliqa" target="_blank" rel="noreferrer noopener">Twitter</a><a href="https://discord.gg/XMRE9tt" target="_blank" rel="noreferrer noopener">Discord</a><a href="https://www.youtube.com/channel/UCvinnFbf0u71cajoxKcfZIQ" target="_blank" rel="noreferrer noopener">YouTube</a></div></section><section class="copyright">Copyright © 2020 Zilliqa Research Pte. Ltd.</section></footer></div></body></html>

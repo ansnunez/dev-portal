@@ -1,0 +1,267 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Network communication and topographies · Zilliqa Developer Portal</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Gossip protocol"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Network communication and topographies · Zilliqa Developer Portal"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ansnunez.github.io/dev-portal/"/><meta property="og:description" content="## Gossip protocol"/><meta property="og:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><link rel="shortcut icon" href="/dev-portal/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/dev-portal/js/scrollSpy.js"></script><link rel="stylesheet" href="/dev-portal/css/main.css"/><script src="/dev-portal/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/dev-portal/en"><img class="logo" src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal"/><h2 class="headerTitleWithLogo">Zilliqa Developer Portal</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/dev-portal/docs/en/basics-intro-blockchain" target="_self">Basics</a></li><li class=""><a href="/dev-portal/docs/en/dev-started-helloworld" target="_self">Develop</a></li><li class=""><a href="/dev-portal/docs/en/mining-general-info" target="_self">Validate</a></li><li class=""><a href="/dev-portal/docs/en/staking-getting-started" target="_self">Integrate</a></li><li class="siteNavGroupActive"><a href="/dev-portal/docs/en/contribute-buildzil" target="_self">Contribute</a></li><span><li><a id="languages-menu" href="#"><img class="languages-icon" src="/dev-portal/img/language.svg" alt="Languages icon"/>English</a><div id="languages-dropdown" class="hide"><ul id="languages-dropdown-items"><li><a href="/dev-portal/docs/zh-CN/core-network">中文</a></li></ul></div></li><script>
+        const languagesMenuItem = document.getElementById("languages-menu");
+        const languagesDropDown = document.getElementById("languages-dropdown");
+        languagesMenuItem.addEventListener("click", function(event) {
+          event.preventDefault();
+
+          if (languagesDropDown.className == "hide") {
+            languagesDropDown.className = "visible";
+          } else {
+            languagesDropDown.className = "hide";
+          }
+        });
+      </script></span></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Core protocol design</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Contribute</h3><ul class=""><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Contribution guide</h4><ul><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/contribute-buildzil">Building Zilliqa</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/contribute-guidelines">Coding and contribution guidelines</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/contribute-bug-bounty">contribute-bug-bounty</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Core protocol design</h4><ul><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-consensus">Consensus</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/dev-portal/docs/en/core-network">Network communication and topographies</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-messaging">Messaging</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-data">Data layer</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-directory-service">Directory service</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-shard">Shard node</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-lookup">Lookup</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-mining">Mining</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-mitigation-measures">Mitigation measures</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-tools">Tools</a></li></ul></div></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Network communication and topographies</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="gossip-protocol"></a><a href="#gossip-protocol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Gossip protocol</h2>
+<p>This document describes the rumor manager which enforces Gossip protocol for messaging in Zilliqa.</p>
+<h3><a class="anchor" aria-hidden="true" id="description"></a><a href="#description" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Description</h3>
+<ul>
+<li>The goal is to provide an efficient replacement to the existing broadcasting mechanism.</li>
+<li>The current broadcasting mechanism in <code>P2PComm::SendBroadcastMessage</code> is resource hungry; it sends O(n^2) messages, requires a lot of threads and opens a lot of TCP connections.</li>
+<li>The gossip algorithm, described in detail in this <a href="https://zoo.cs.yale.edu/classes/cs426/2013/bib/karp00randomized.pdf">link</a> paper, provides a method to spread a message in O(logn) rounds and O(ln(ln(n))) messages,
+where n is the number of peers participating in the gossip.</li>
+<li>RumorManager plays a role of managing all the gossips/rumors and their states.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="interfaces"></a><a href="#interfaces" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Interfaces</h3>
+<p>Following interfaces are exposed for node to enable gossiping messages in network.</p>
+<h4><a class="anchor" aria-hidden="true" id="initializerumormanager"></a><a href="#initializerumormanager" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>InitializeRumorManager</h4>
+<p>Every node in network intializes the RumorManager with the peers from their shard or DSCommittee at start of new DS epoch or after successful view change.</p>
+<p>Initialization involves following:</p>
+<ul>
+<li>Storing peerlist</li>
+<li>Storing pubkeys of peers from peerlist, DSCommitte members and lookup nodes</li>
+<li>Storing self peer-info and pub/priv key</li>
+<li>Starting of Rounds - that runs loop every <code>ROUND_TIME_IN_MS</code> ms.
+<ul>
+<li>Checks the state of every rumor in RumorHolder (More on RumorHolder later) and sends to <code>MAX_NEIGHBORS_PER_ROUND</code> random peers if not old enough.</li>
+<li>RumorHolder monitors/changes state of each rumor it holds using Median Counter algorithm as explained in paper ( section 3 ) for every round.</li>
+</ul></li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="spreadrumor"></a><a href="#spreadrumor" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>SpreadRumor</h4>
+<p>Enables node to initiate the rumor to be gossipped with his peerlist. It will basically add the rumor to RumorHolder which in turn manages it states and further gossiping.</p>
+<h4><a class="anchor" aria-hidden="true" id="spreadforeignrumor"></a><a href="#spreadforeignrumor" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>SpreadForeignRumor</h4>
+<p>Enables node to initiate spreading out rumor received from node not part of his peerlist ( hence foreign ).
+It verifies the sender node against all the pubkeys stored during initialization of RumorManager</p>
+<h4><a class="anchor" aria-hidden="true" id="stoprounds"></a><a href="#stoprounds" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>StopRounds</h4>
+<p>Stops the Round. Thereby stops gossiping rumors to peers.</p>
+<h3><a class="anchor" aria-hidden="true" id="rumor-state-machine"></a><a href="#rumor-state-machine" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Rumor State Machine</h3>
+<p>Every rumor will be in one of following state at any time</p>
+<ul>
+<li><code>NEW</code> : the peer <code>v</code> knows <code>r</code> and <code>counter(v,r) = m</code> (age/round)</li>
+<li><code>KNOWN</code> : cooling state, stay in this state for a <code>m_maxRounds</code> rounds, participating in rumor spreading</li>
+<li><code>OLD</code> : final state, member stops participating in rumor spreading</li>
+</ul>
+<p>Every rumor starts with NEW. It either stay in same state or move on to KNOWN /OLD state immediately or in successive rounds based on algo mentioned in whitepaper. Every rumor is tied up with round ( consider it as rumor age).</p>
+<p>Rumor is configured to stay in NEW and KNOWN state for max <code>&lt;MAX_ROUNDS_IN_BSTATE&gt;</code> and <code>&lt;MAX_ROUNDS_IN_CSTATE&gt;</code> respectively.
+And to brutefully mark rumor as OLD, total rounds is limited to not exceed <code>&lt;MAX_TOTAL_ROUNDS&gt;</code>.</p>
+<pre><code class="hljs css language-xml">    <span class="hljs-tag">&lt;<span class="hljs-name">gossip_custom_rounds</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">MAX_ROUNDS_IN_BSTATE</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">MAX_ROUNDS_IN_BSTATE</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">MAX_ROUNDS_IN_CSTATE</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">MAX_ROUNDS_IN_CSTATE</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">MAX_TOTAL_ROUNDS</span>&gt;</span>6<span class="hljs-tag">&lt;/<span class="hljs-name">MAX_TOTAL_ROUNDS</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">gossip_custom_rounds</span>&gt;</span>
+</code></pre>
+<p>Rumor State Machine is managed by <code>RumorHolder</code></p>
+<h3><a class="anchor" aria-hidden="true" id="gossip-message-format"></a><a href="#gossip-message-format" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Gossip Message Format</h3>
+<table>
+<thead>
+<tr><th>START_BYTE_GOSSIP (0X33)</th><th>HDR</th><th>GOSSIP_MSGTYPE</th><th>GOSSIP_ROUND</th><th>GOSSIP_SNDR_PORT</th><th>PUB_KEY_SIZE</th><th>SIGNATURE</th><th>Payload Message</th></tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="optimization-with-pull-push-mechanism"></a><a href="#optimization-with-pull-push-mechanism" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Optimization with Pull-Push Mechanism</h3>
+<p>Following are the GOSSIP_MSGTYPE :</p>
+<ul>
+<li><p><code>PUSH</code> = 0x01
+Indicates response to PULL request and payload contains real raw message and send out to requesting peer</p></li>
+<li><p><code>PULL</code> = 0x02
+Indicates request for real raw message of given hash and payload contains hash. Its being send out to sender in response to LAZY_PUSH or LAZY_PULL</p></li>
+<li><p><code>EMPTY_PUSH</code> = 0x03
+Being send out every round to random neighbors if it has not active rumor in it store. Indicates asking for any rumors from neighbors. Payload contains unused dummy data.</p></li>
+<li><p><code>EMPTY_PULL</code> = 0x04
+Being send out to sender of EMPTY_PULL or LAZY_PULL that it don't have any active rumors either. Payload contains unused dummy data.</p></li>
+<li><p><code>FORWARD</code> = 0x05
+Special type that indicates that message being send out is from foreign peer. This would mean sender is from another shard or is lookup node.
+This would mean message is send out from :
+-lookup node to shard node or DSCommitte node
+-shard node to DSCommitte node and vice-versa</p></li>
+<li><p><code>LAZY_PUSH</code> = 0x06
+Being send out every round to random neighbors for each active rumor in it store. Its payload contains the hash of real raw message intented to be gossiped eventually.</p></li>
+<li><p><code>LAZY_PULL</code> = 0x07
+Indicates the response to the sender if it is the first time 'sender' have sent a LAZY_PUSH/EMPTY_PUSH message in this round. Its payload contains the hash of real raw message</p>
+<p><strong>(Note: Every gossip message is verified for signature before being accepted.)</strong></p></li>
+</ul>
+<p>As mentioned above, Standard Push Pull mechanism is optimized further to gossip the hashes using EMPTY_* and LAZY_* and fetching the real messages using PUSH and PULL.
+So, LAZY_PUSH and LAZY_PULL are the backbone for gossiping of hashes and are only ones which has valid <code>GOSSIP_ROUND</code> for underlying rumor (hash in our case).
+For rest of message type, GOSSIP_ROUND is just set to -1 since it's not of any use.</p>
+<h3><a class="anchor" aria-hidden="true" id="further-optimization"></a><a href="#further-optimization" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Further optimization</h3>
+<p>Due to nature of quick gossip, its possible that node might not have real message and only hash at some point of time. In such case, if node receives <code>PULL</code> message for that hash it adds that node to <code>subscription list</code>. As soon as nodes receives real message for that hash, it send it all peers in its subscription list.</p>
+<h3><a class="anchor" aria-hidden="true" id="reference"></a><a href="#reference" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Reference</h3>
+<ol>
+<li><a href="https://zoo.cs.yale.edu/classes/cs426/2013/bib/karp00randomized.pdf">Randomized Rumor Spreading</a></li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="tree-based-cluster-broadcasting"></a><a href="#tree-based-cluster-broadcasting" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Tree Based Cluster Broadcasting</h2>
+<p>This document describes the purpose, implementation details and application of Tree-Based-Cluster-Broadcasting.</p>
+<h3><a class="anchor" aria-hidden="true" id="description-1"></a><a href="#description-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Description</h3>
+<ul>
+<li>Gossip / Rumor spreading mechanism is used widely in zilliqa network for messaging. Refer <a href="https://github.com/Zilliqa/dev-docs/blob/master/core/gossip-protocol.md">link</a> for more details of gossip protocol.</li>
+<li>However gossip protocol at it very basic needs the information of peer to spread the rumor with. This basic requirement of peer's info is available almost every time except when new DS block is mined.</li>
+<li>DS Block contains information of peers belonging to each shard which is leveraged by each node to initialize their peer list and restart gossip engine.</li>
+<li>However, spreading the DS Block itself is problem to be solved. Solution is <code>Tree-Based-Cluster-Broadcasting</code>.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="purpose"></a><a href="#purpose" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Purpose</h3>
+<p>In the new DS epoch, before receiving the DS block, a shard node doesn’t know the information of the other nodes in the same shard.
+Thus, we should leverage multicast to broadcast the DS block to the nodes within a shard.</p>
+<h3><a class="anchor" aria-hidden="true" id="design"></a><a href="#design" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Design</h3>
+<ol>
+<li><p>Assume that we have <code>X</code> nodes in a shard, each cluster has <code>Y</code> nodes, a cluster has <code>Z</code> children clusters, and every node has its sequence number <code>n</code> starting from <code>0</code>. <code>X / Y</code>  represents <code>[_X / Y_]</code>, e.g., <code>2/10 = 0, 11/10 = 1</code>.</p></li>
+<li><p>Therefore, we have <code>X / Y</code> clusters , say <code>0 .. X/Y-1</code>. For a node <code>n</code>, it belongs to cluster <code>n / Y</code> and it’s at level <code>log_z(n/Y)</code>.</p></li>
+<li><p>Then the node will multicast the message to the node <code>(n/Y * Z + 1)*Y</code> ~ <code>((n/Y * Z + Z + 1)* Y - 1)</code>.
+Bound checks on node index are needed to be done before multicasting. If check fails don’t broadcast.</p></li>
+</ol>
+<p><img src="core/features/tree-based-cluster-broadcasting/image01.jpg" alt="image01"></p>
+<h3><a class="anchor" aria-hidden="true" id="application"></a><a href="#application" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Application</h3>
+<p>Based on above algorithm, below are the parameters which control broadcasting of DSBLOCK by ds-node to all nodes in the shard.</p>
+<pre><code class="hljs css language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">data_sharing</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">BROADCAST_TREEBASED_CLUSTER_MODE</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">BROADCAST_TREEBASED_CLUSTER_MODE</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">NUM_FORWARDED_BLOCK_RECEIVERS_PER_SHARD</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">NUM_FORWARDED_BLOCK_RECEIVERS_PER_SHARD</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">MULTICAST_CLUSTER_SIZE</span>&gt;</span>10<span class="hljs-tag">&lt;/<span class="hljs-name">MULTICAST_CLUSTER_SIZE</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">NUM_OF_TREEBASED_CHILD_CLUSTERS</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">NUM_OF_TREEBASED_CHILD_CLUSTERS</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">data_sharing</span>&gt;</span>
+</code></pre>
+<ul>
+<li><p><code>BROADCAST_TREEBASED_CLUSTER_MODE</code> : Enable/Disable Tree Based Cluster Broadcasting and fallback to pure multicasting.</p></li>
+<li><p><code>NUM_FORWARDED_BLOCK_RECEIVERS_PER_SHARD</code> : Number of shard-nodes receiving the DSBLOCK from ds-node initially.</p></li>
+<li><p><code>MULTICAST_CLUSTER_SIZE</code> : Number of nodes in each cluster.</p></li>
+<li><p><code>NUM_OF_TREEBASED_CHILD_CLUSTERS</code> : Number of child clusters for given cluster.</p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="blacklist"></a><a href="#blacklist" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Blacklist</h2>
+<p>Zilliqa has a blacklisting feature implemented in <code>libNetwork</code>. The idea is to keep track of IP addresses of peers that, for conditions listed below, can potentially disrupt the operation of the node. Once blacklisted, the peer is effectively excluded from further interactions with the node.</p>
+<h3><a class="anchor" aria-hidden="true" id="blacklisting-conditions"></a><a href="#blacklisting-conditions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Blacklisting conditions</h3>
+<ul>
+<li>Socket write failure (according to <code>P2PComm::IsHostHavingNetworkIssue</code>)</li>
+<li>Socket connect failure (according to <code>P2PComm::IsHostHavingNetworkIssue</code>)</li>
+<li>Gossip message from peer exceeds <code>MAX_GOSSIP_MSG_SIZE_IN_BYTES</code></li>
+<li>Bytes read from peer exceeds <code>MAX_READ_WATERMARK_IN_BYTES</code></li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="blacklist-checking"></a><a href="#blacklist-checking" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Blacklist checking</h3>
+<p>Outgoing</p>
+<ul>
+<li><code>Lookup::SendMessageToRandomSeedNode</code></li>
+<li><code>P2PComm::SendMessageNoQueue</code></li>
+<li><code>SendJob::SendMessageCore</code></li>
+<li><code>SendJobPeer::DoSend</code></li>
+<li><code>SendJobPeers&lt;T&gt;::DoSend</code></li>
+</ul>
+<p>Incoming</p>
+<ul>
+<li><code>P2PComm::AcceptConnectionCallback</code></li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="blacklist-exemptions"></a><a href="#blacklist-exemptions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Blacklist exemptions</h3>
+<p>Adding exclusion privilege</p>
+<ol>
+<li>DS guards
+<ul>
+<li>When <code>NEWDSGUARDNETWORKINFO</code> is received (new IP)</li>
+<li>Whenever DS committee is updated</li>
+</ul></li>
+<li>Lookup nodes
+<ul>
+<li>Every time a message is sent out</li>
+</ul></li>
+<li>Manual addition of an IP using <code>miner_info.py whitelist_add</code></li>
+</ol>
+<p>Removing exclusion privilege</p>
+<ol>
+<li>DS guards
+<ul>
+<li>When <code>NEWDSGUARDNETWORKINFO</code> is received (old IP)</li>
+</ul></li>
+<li>Manual removal of an IP using <code>miner_info.py whitelist_remove</code></li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="blacklist-removal-and-clearing"></a><a href="#blacklist-removal-and-clearing" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Blacklist removal and clearing</h2>
+<ul>
+<li>Non-lookup nodes remove <code>BLACKLIST_NUM_TO_POP</code> number of peers from the blacklist at the start of the DS epoch</li>
+<li>Non-lookup nodes also remove all blacklisted seed nodes from the blacklist at the start of the DS epoch</li>
+<li>Lookup nodes clear the entire blacklist upon receiving the DS Block</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="blacklist-enabling"></a><a href="#blacklist-enabling" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Blacklist enabling</h3>
+<p>Blacklist is enabled by default, and is only temporarily disabled when doing node recovery (<code>RECOVERY_ALL_SYNC</code>). In that situation, the blacklist is re-enabled once the final block is processed.</p>
+<h2><a class="anchor" aria-hidden="true" id="messaging-limits"></a><a href="#messaging-limits" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Messaging Limits</h2>
+<p>The volume and size of peer-to-peer communication for a Zilliqa node is controlled by several factors at different parts of the stack.</p>
+<h3><a class="anchor" aria-hidden="true" id="message-size"></a><a href="#message-size" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Message Size</h3>
+<ul>
+<li><code>MIN_READ_WATERMARK_IN_BYTES</code>: The minimum number of bytes read from the socket before we act on the data. It is basically the <code>lowmark</code> parameter required by the libevent function <code>bufferevent_setwatermark</code>.</li>
+<li><code>MAX_READ_WATERMARK_IN_BYTES</code>: The maximum number of bytes read from the socket before we stop accepting further input. It is basically the <code>highmark</code> parameter required by the libevent function <code>bufferevent_setwatermark</code>.</li>
+<li><code>MAX_GOSSIP_MSG_SIZE_IN_BYTES</code>: The maximum size of a socket message with start byte = <code>START_BYTE_GOSSIP</code>. If a message reaches this size, the sender is blacklisted.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="message-count"></a><a href="#message-count" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Message Count</h3>
+<ul>
+<li><code>MAXMESSAGE</code>: The number of active threads for each job pool. For the incoming pool, this is the maximum number of concurrent messages to be dispatched for processing. For the outgoing pool, this is the maximum number of jobs for sending out each message to its own peer list.</li>
+<li><code>MSGQUEUE_SIZE</code>: The maximum size of the incoming message queue (before transfer to the incoming pool), beyond which any further messages are dropped.</li>
+<li><code>SENDQUEUE_SIZE</code>: The maximum size of the outgoing message queue (before transfer to the outgoing pool), beyond which any further messages are dropped.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="sending-frequency"></a><a href="#sending-frequency" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sending Frequency</h3>
+<ul>
+<li><code>MAXRETRYCONN</code>: The maximum number of socket connection attempts to perform for sending messages to a peer.</li>
+<li><code>PUMPMESSAGE_MILLISECONDS</code>: The maximum wait time (minimum being 1 ms) before re-attempting socket connection.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="active-connections"></a><a href="#active-connections" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Active Connections</h3>
+<ul>
+<li><code>MAX_PEER_CONNECTION</code>: The maximum number of active connections to a specific peer.</li>
+</ul>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/dev-portal/docs/en/core-consensus"><span class="arrow-prev">← </span><span>Consensus</span></a><a class="docs-next button" href="/dev-portal/docs/en/core-messaging"><span>Messaging</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#gossip-protocol">Gossip protocol</a><ul class="toc-headings"><li><a href="#description">Description</a></li><li><a href="#interfaces">Interfaces</a></li><li><a href="#rumor-state-machine">Rumor State Machine</a></li><li><a href="#gossip-message-format">Gossip Message Format</a></li><li><a href="#optimization-with-pull-push-mechanism">Optimization with Pull-Push Mechanism</a></li><li><a href="#further-optimization">Further optimization</a></li><li><a href="#reference">Reference</a></li></ul></li><li><a href="#tree-based-cluster-broadcasting">Tree Based Cluster Broadcasting</a><ul class="toc-headings"><li><a href="#description-1">Description</a></li><li><a href="#purpose">Purpose</a></li><li><a href="#design">Design</a></li><li><a href="#application">Application</a></li></ul></li><li><a href="#blacklist">Blacklist</a><ul class="toc-headings"><li><a href="#blacklisting-conditions">Blacklisting conditions</a></li><li><a href="#blacklist-checking">Blacklist checking</a></li><li><a href="#blacklist-exemptions">Blacklist exemptions</a></li></ul></li><li><a href="#blacklist-removal-and-clearing">Blacklist removal and clearing</a><ul class="toc-headings"><li><a href="#blacklist-enabling">Blacklist enabling</a></li></ul></li><li><a href="#messaging-limits">Messaging Limits</a><ul class="toc-headings"><li><a href="#message-size">Message Size</a></li><li><a href="#message-count">Message Count</a></li><li><a href="#sending-frequency">Sending Frequency</a></li><li><a href="#active-connections">Active Connections</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/dev-portal/" class="nav-home"><img src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal" width="66" height="70"/></a><div><h5>Links</h5><a href="https://www.github.com/Zilliqa" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://blog.zilliqa.com/" target="_blank" rel="noreferrer noopener">Medium</a><a href="https://twitter.com/zilliqa" target="_blank" rel="noreferrer noopener">Twitter</a><a href="https://discord.gg/XMRE9tt" target="_blank" rel="noreferrer noopener">Discord</a><a href="https://www.youtube.com/channel/UCvinnFbf0u71cajoxKcfZIQ" target="_blank" rel="noreferrer noopener">YouTube</a></div></section><section class="copyright">Copyright © 2020 Zilliqa Research Pte. Ltd.</section></footer></div></body></html>
