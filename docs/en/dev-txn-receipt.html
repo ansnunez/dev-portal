@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Receipt · Zilliqa Developer Portal</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Params"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Receipt · Zilliqa Developer Portal"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ansnunez.github.io/dev-portal/"/><meta property="og:description" content="## Params"/><meta property="og:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><link rel="shortcut icon" href="/dev-portal/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/dev-portal/js/scrollSpy.js"></script><link rel="stylesheet" href="/dev-portal/css/main.css"/><script src="/dev-portal/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/dev-portal/en"><img class="logo" src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal"/><h2 class="headerTitleWithLogo">Zilliqa Developer Portal</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/dev-portal/docs/en/basics-intro-blockchain" target="_self">Basics</a></li><li class="siteNavGroupActive"><a href="/dev-portal/docs/en/dev-started-helloworld" target="_self">Developers</a></li><li class=""><a href="/dev-portal/docs/en/mining-general-info" target="_self">Miners</a></li><li class=""><a href="/dev-portal/docs/en/staking-getting-started" target="_self">Exchanges</a></li><li class=""><a href="/dev-portal/docs/en/contribute-buildzil" target="_self">Contributors</a></li><span><li><a id="languages-menu" href="#"><img class="languages-icon" src="/dev-portal/img/language.svg" alt="Languages icon"/>English</a><div id="languages-dropdown" class="hide"><ul id="languages-dropdown-items"><li><a href="/dev-portal/docs/zh-CN/dev-txn-receipt">中文</a></li></ul></div></li><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Receipt · Zilliqa Developer Portal</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="After a transaction is confirmed in the blockchain, a transaction response would be returned along with a `receipt`."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Receipt · Zilliqa Developer Portal"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ansnunez.github.io/dev-portal/"/><meta property="og:description" content="After a transaction is confirmed in the blockchain, a transaction response would be returned along with a `receipt`."/><meta property="og:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><link rel="shortcut icon" href="/dev-portal/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/dev-portal/js/scrollSpy.js"></script><link rel="stylesheet" href="/dev-portal/css/main.css"/><script src="/dev-portal/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/dev-portal/en"><img class="logo" src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal"/><h2 class="headerTitleWithLogo">Zilliqa Developer Portal</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/dev-portal/docs/en/basics-intro-blockchain" target="_self">Basics</a></li><li class="siteNavGroupActive"><a href="/dev-portal/docs/en/dev-started-helloworld" target="_self">Developers</a></li><li class=""><a href="/dev-portal/docs/en/mining-general-info" target="_self">Miners</a></li><li class=""><a href="/dev-portal/docs/en/staking-getting-started" target="_self">Exchanges</a></li><li class=""><a href="/dev-portal/docs/en/contribute-buildzil" target="_self">Contributors</a></li><span><li><a id="languages-menu" href="#"><img class="languages-icon" src="/dev-portal/img/language.svg" alt="Languages icon"/>English</a><div id="languages-dropdown" class="hide"><ul id="languages-dropdown-items"><li><a href="/dev-portal/docs/zh-CN/dev-txn-receipt">中文</a></li></ul></div></li><script>
         const languagesMenuItem = document.getElementById("languages-menu");
         const languagesDropDown = document.getElementById("languages-dropdown");
         languagesMenuItem.addEventListener("click", function(event) {
@@ -66,7 +66,159 @@
                 };
               }
             });
-        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Receipt</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="params"></a><a href="#params" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Params</h2>
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Receipt</h1></header><article><div><span><p>After a transaction is confirmed in the blockchain, a transaction response would be returned along with a <code>receipt</code>.</p>
+<p>Example of a transaction response with the <code>receipt</code> structure:</p>
+<pre><code class="hljs">{
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1"</span>,
+  <span class="hljs-attr">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
+  <span class="hljs-attr">"result"</span>: {
+      <span class="hljs-comment">// others</span>
+
+    <span class="hljs-attr">"receipt"</span>: {
+      <span class="hljs-attr">"accepted"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"cumulative_gas"</span>: <span class="hljs-string">"878"</span>,
+      <span class="hljs-attr">"epoch_num"</span>: <span class="hljs-string">"589742"</span>,
+      <span class="hljs-attr">"success"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"transitions"</span>: [
+        {
+          <span class="hljs-attr">"addr"</span>: <span class="hljs-string">"0x9a65df55b2668a0f9f5f749267cb351a37e1f3d9"</span>,
+          <span class="hljs-attr">"depth"</span>: <span class="hljs-number">0</span>,
+          <span class="hljs-attr">"msg"</span>: {
+            <span class="hljs-attr">"_amount"</span>: <span class="hljs-string">"50000000000000"</span>,
+            <span class="hljs-attr">"_recipient"</span>: <span class="hljs-string">"0xc0e28525e9d329156e16603b9c1b6e4a9c7ed813"</span>,
+            <span class="hljs-attr">"_tag"</span>: <span class="hljs-string">"onFundsReceived"</span>,
+            <span class="hljs-attr">"params"</span>: []
+          }
+        }
+      ]
+    },
+    <span class="hljs-attr">"senderPubKey"</span>: <span class="hljs-string">"0x03DE40DF885B0E334D53FF5E5554589AAF46F2339FEBEE93213F2CCE52D1F488F4"</span>,
+    <span class="hljs-attr">"signature"</span>: <span class="hljs-string">"0xB19AB66C4410EE4833A9C5DEE600471DB4D711F6B61D2312988E6E70CC655409F18BB42BB6940B6263C8EA5CE08CAEC06111BDF19BE00D7E15F25515CAA45DAA"</span>,
+    <span class="hljs-attr">"toAddr"</span>: <span class="hljs-string">"9a65df55b2668a0f9f5f749267cb351a37e1f3d9"</span>,
+    <span class="hljs-attr">"version"</span>: <span class="hljs-string">"65537"</span>
+  }
+}
+</code></pre>
+<p>Depending on the type of transaction (e.g. payment, contract call, chain contract call) being processed, the <code>receipt</code> may return different data.</p>
+<h2><a class="anchor" aria-hidden="true" id="params"></a><a href="#params" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Params</h2>
+<p>This section lists all the <em>possible</em>  <code>receipt</code> returned values.</p>
+<table>
+<thead>
+<tr><th>Name</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>cumulative_gas</code></td><td>The total amount of gas used when it is executed in the particular block</td></tr>
+<tr><td><code>epoch_num</code></td><td>The block number when this transaction is allocated to</td></tr>
+<tr><td><code>errors</code></td><td>Contains the error code if the transaction has any errors</td></tr>
+<tr><td><code>event_logs</code></td><td>Contains the parameters of the contract transition being invoked</td></tr>
+<tr><td><code>exceptions</code></td><td>Returns the exception messages if there is an error when invoking contract</td></tr>
+<tr><td><code>transitions</code></td><td>Contains the parameters used to called the specific transition</td></tr>
+<tr><td><code>success</code></td><td>Returns true if the transaction is successfully executed, false otherwise</td></tr>
+</tbody>
+</table>
 <h2><a class="anchor" aria-hidden="true" id="events"></a><a href="#events" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Events</h2>
+<p><code>event_logs</code> are events created as a result of invoking the contract calls.</p>
+<p>For instance, in the following sample contract code, calling <code>setHello</code> transition would trigger a &quot;<code>setHello</code>&quot; event name.</p>
+<pre><code class="hljs"><span class="hljs-comment">(* HelloWorld Sample *)</span>
+
+transition setHello (msg : String)
+  is_owner = builtin eq owner _sender;
+  <span class="hljs-keyword">match</span> is_owner <span class="hljs-built_in">with</span>
+  | <span class="hljs-type">False</span> =&gt;
+    e = {_eventname : <span class="hljs-string">"setHello()"</span>; code : not_owner_code};
+    event e
+  | <span class="hljs-type">True</span> =&gt;
+    welcome_msg := msg;
+    e = {_eventname : <span class="hljs-string">"setHello()"</span>; code : set_hello_code}; <span class="hljs-comment">(* trigger event here *)</span>
+    event e
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+</code></pre>
+<p>If we execute this transition, the returned <code>receipt</code> is as follows:</p>
+<pre><code class="hljs">{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1"</span>,
+    <span class="hljs-attr">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
+    <span class="hljs-attr">"result"</span>: {
+        <span class="hljs-comment">// others</span>
+        <span class="hljs-attr">"receipt"</span>: {
+            <span class="hljs-attr">"accepted"</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">"cumulative_gas"</span>: <span class="hljs-string">"668"</span>,
+            <span class="hljs-attr">"epoch_num"</span>: <span class="hljs-string">"1474081"</span>,
+            <span class="hljs-attr">"event_logs"</span>: [
+                {
+                    <span class="hljs-attr">"_eventname"</span>: <span class="hljs-string">"setHello()"</span>,
+                    <span class="hljs-attr">"address"</span>: <span class="hljs-string">"0xde8d3637aec06d6c7da49aeb9c7409ac44a98138"</span>,
+                    <span class="hljs-attr">"params"</span>: [
+                        {
+                            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Int32"</span>,
+                            <span class="hljs-attr">"value"</span>: <span class="hljs-string">"2"</span>,
+                            <span class="hljs-attr">"vname"</span>: <span class="hljs-string">"code"</span>
+                        }
+                    ]
+                }
+            ],
+            <span class="hljs-attr">"success"</span>: <span class="hljs-literal">true</span>
+        },
+    }
+}
+</code></pre>
+<p>Observed that the <code>setHello</code> event is returned as the <code>setHello</code> transition is successfully executed by the blockchain.</p>
+<h2><a class="anchor" aria-hidden="true" id="transitions"></a><a href="#transitions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Transitions</h2>
+<p>A <code>transitions</code> object is returned if the contract is invoking other procedures or another contract transition. A <code>transition</code> object provides details of the &quot;transition chain&quot; such as the address of the initiator, the tag (transition name), the recipient, the params .etc.</p>
+<p>Example of a <code>transition</code> object:</p>
+<pre><code class="hljs">{
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"1"</span>,
+  <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
+  <span class="hljs-string">"result"</span>: {
+    <span class="hljs-string">"ID"</span>: <span class="hljs-string">"52605cee6955b3d14f5478927a90977b305325aff4ae0a2f9dbde758e7b92ad4"</span>,
+    <span class="hljs-string">"amount"</span>: <span class="hljs-string">"50000000000000"</span>,
+    <span class="hljs-string">"data"</span>: <span class="hljs-string">"{\"</span><span class="hljs-variable">_tag</span>\<span class="hljs-string">":\"</span>sendFunds\<span class="hljs-string">",\"</span><span class="hljs-built_in">params</span>\<span class="hljs-string">":[{\"</span>vname\<span class="hljs-string">":\"</span>accountValues\<span class="hljs-string">",\"</span><span class="hljs-built_in">type</span>\<span class="hljs-string">":\"</span><span class="hljs-built_in">List</span> (AccountValue)\<span class="hljs-string">",\"</span>value\<span class="hljs-string">":[{\"</span>constructor\<span class="hljs-string">":\"</span>AccountValue\<span class="hljs-string">",\"</span>argtypes\<span class="hljs-string">":[],\"</span>arguments\<span class="hljs-string">":[\"</span><span class="hljs-number">0</span>xc0e28525e9d329156e16603b9c1b6e4a9c7ed813\<span class="hljs-string">",\"</span><span class="hljs-number">50000000000000</span>\<span class="hljs-string">"]}]}]}"</span>,
+    <span class="hljs-string">"gasLimit"</span>: <span class="hljs-string">"25000"</span>,
+    <span class="hljs-string">"gasPrice"</span>: <span class="hljs-string">"1000000000"</span>,
+    <span class="hljs-string">"nonce"</span>: <span class="hljs-string">"3816"</span>,
+    <span class="hljs-string">"receipt"</span>: {
+      <span class="hljs-string">"accepted"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-string">"cumulative_gas"</span>: <span class="hljs-string">"878"</span>,
+      <span class="hljs-string">"epoch_num"</span>: <span class="hljs-string">"589742"</span>,
+      <span class="hljs-string">"success"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-string">"transitions"</span>: [
+        {
+          <span class="hljs-string">"addr"</span>: <span class="hljs-string">"0x9a65df55b2668a0f9f5f749267cb351a37e1f3d9"</span>,
+          <span class="hljs-string">"depth"</span>: <span class="hljs-number">0</span>,
+          <span class="hljs-string">"msg"</span>: {
+            <span class="hljs-string">"_amount"</span>: <span class="hljs-string">"50000000000000"</span>,
+            <span class="hljs-string">"_recipient"</span>: <span class="hljs-string">"0xc0e28525e9d329156e16603b9c1b6e4a9c7ed813"</span>,
+            <span class="hljs-string">"_tag"</span>: <span class="hljs-string">"onFundsReceived"</span>,
+            <span class="hljs-string">"params"</span>: []
+          }
+        }
+      ]
+    },
+    ...
+  }
+}
+</code></pre>
+<p>In the above example, from the <code>data</code> object we can observe the <code>sendFunds</code> transition is inovked here, presumably to send <code>50000000000000</code> to <code>0xc0e28525e9d329156e16603b9c1b6e4a9c7ed813</code>. Notice that in the <code>transitions</code> object,  the <code>onFundsReceived</code> procedure is subsequently invoked internally, and we can observe the recipient and amount is indeed the transmitted amount.</p>
 <h2><a class="anchor" aria-hidden="true" id="exception"></a><a href="#exception" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Exception</h2>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/dev-portal/docs/en/dev-txn-confirmation"><span class="arrow-prev">← </span><span>Confirmation</span></a><a class="docs-next button" href="/dev-portal/docs/en/dev-test-checker"><span>Static-checker</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#params">Params</a></li><li><a href="#events">Events</a></li><li><a href="#exception">Exception</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/dev-portal/" class="nav-home"><img src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal" width="66" height="70"/></a><div><h5>Links</h5><a href="https://www.github.com/Zilliqa" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://blog.zilliqa.com/" target="_blank" rel="noreferrer noopener">Medium</a><a href="https://twitter.com/zilliqa" target="_blank" rel="noreferrer noopener">Twitter</a><a href="https://discord.gg/XMRE9tt" target="_blank" rel="noreferrer noopener">Discord</a><a href="https://www.youtube.com/channel/UCvinnFbf0u71cajoxKcfZIQ" target="_blank" rel="noreferrer noopener">YouTube</a></div></section><section class="copyright">Copyright © 2020 Zilliqa Research Pte. Ltd.</section></footer></div></body></html>
+<p>A <code>exceptions</code> object is returned if the contract specifically raise an error when it encounters issues invoking the transition, for example, invoking a transfer transition without sufficient balance .etc. A <code>exceptions</code> object contains the <code>line</code> number of the contract that raised the error and the corresponding exception <code>message</code>.</p>
+<p>Example of a <code>exceptions</code> object:</p>
+<pre><code class="hljs"><span class="hljs-string">"receipt"</span>: {
+    <span class="hljs-string">...</span> <span class="hljs-string">//</span> others
+    <span class="hljs-string">...</span>
+    <span class="hljs-string">"exceptions"</span>: [
+        {
+            <span class="hljs-string">"line"</span>: 87,
+            <span class="hljs-string">"message"</span>: <span class="hljs-string">"Exception thrown: (Message [(_exception : (String \"Error\")) ; (code : (Int32 -2))])"</span>
+        },
+        {
+            <span class="hljs-string">"line"</span>: 100,
+            <span class="hljs-string">"message"</span>: <span class="hljs-string">"Raised from IsAdmin"</span>
+        },
+        {
+            <span class="hljs-string">"line"</span>: 137,
+            <span class="hljs-string">"message"</span>: <span class="hljs-string">"Raised from ConfigureUsers"</span>
+        }
+    ]
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/dev-portal/docs/en/dev-txn-confirmation"><span class="arrow-prev">← </span><span>Confirmation</span></a><a class="docs-next button" href="/dev-portal/docs/en/dev-test-checker"><span>Static-checker</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#params">Params</a></li><li><a href="#events">Events</a></li><li><a href="#transitions">Transitions</a></li><li><a href="#exception">Exception</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/dev-portal/" class="nav-home"><img src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal" width="66" height="70"/></a><div><h5>Links</h5><a href="https://www.github.com/Zilliqa" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://blog.zilliqa.com/" target="_blank" rel="noreferrer noopener">Medium</a><a href="https://twitter.com/zilliqa" target="_blank" rel="noreferrer noopener">Twitter</a><a href="https://discord.gg/XMRE9tt" target="_blank" rel="noreferrer noopener">Discord</a><a href="https://www.youtube.com/channel/UCvinnFbf0u71cajoxKcfZIQ" target="_blank" rel="noreferrer noopener">YouTube</a></div></section><section class="copyright">Copyright © 2020 Zilliqa Research Pte. Ltd.</section></footer></div></body></html>

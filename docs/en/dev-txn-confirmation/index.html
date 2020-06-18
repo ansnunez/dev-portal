@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Confirmation · Zilliqa Developer Portal</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Confirmation"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Confirmation · Zilliqa Developer Portal"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ansnunez.github.io/dev-portal/"/><meta property="og:description" content="Confirmation"/><meta property="og:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><link rel="shortcut icon" href="/dev-portal/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/dev-portal/js/scrollSpy.js"></script><link rel="stylesheet" href="/dev-portal/css/main.css"/><script src="/dev-portal/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/dev-portal/en"><img class="logo" src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal"/><h2 class="headerTitleWithLogo">Zilliqa Developer Portal</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/dev-portal/docs/en/basics-intro-blockchain" target="_self">Basics</a></li><li class="siteNavGroupActive"><a href="/dev-portal/docs/en/dev-started-helloworld" target="_self">Developers</a></li><li class=""><a href="/dev-portal/docs/en/mining-general-info" target="_self">Miners</a></li><li class=""><a href="/dev-portal/docs/en/staking-getting-started" target="_self">Exchanges</a></li><li class=""><a href="/dev-portal/docs/en/contribute-buildzil" target="_self">Contributors</a></li><span><li><a id="languages-menu" href="#"><img class="languages-icon" src="/dev-portal/img/language.svg" alt="Languages icon"/>English</a><div id="languages-dropdown" class="hide"><ul id="languages-dropdown-items"><li><a href="/dev-portal/docs/zh-CN/dev-txn-confirmation">中文</a></li></ul></div></li><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Confirmation · Zilliqa Developer Portal</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Now the transaction object is in one of the shard. Each shard will produce a __Micro Block__. Micro Blocks are aggregated by the DS Committee into a Transaction Block, after the DS Committee agrees on the Transaction Block through the pBFT consensus mechanism."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Confirmation · Zilliqa Developer Portal"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ansnunez.github.io/dev-portal/"/><meta property="og:description" content="Now the transaction object is in one of the shard. Each shard will produce a __Micro Block__. Micro Blocks are aggregated by the DS Committee into a Transaction Block, after the DS Committee agrees on the Transaction Block through the pBFT consensus mechanism."/><meta property="og:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><link rel="shortcut icon" href="/dev-portal/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/dev-portal/js/scrollSpy.js"></script><link rel="stylesheet" href="/dev-portal/css/main.css"/><script src="/dev-portal/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/dev-portal/en"><img class="logo" src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal"/><h2 class="headerTitleWithLogo">Zilliqa Developer Portal</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/dev-portal/docs/en/basics-intro-blockchain" target="_self">Basics</a></li><li class="siteNavGroupActive"><a href="/dev-portal/docs/en/dev-started-helloworld" target="_self">Developers</a></li><li class=""><a href="/dev-portal/docs/en/mining-general-info" target="_self">Miners</a></li><li class=""><a href="/dev-portal/docs/en/staking-getting-started" target="_self">Exchanges</a></li><li class=""><a href="/dev-portal/docs/en/contribute-buildzil" target="_self">Contributors</a></li><span><li><a id="languages-menu" href="#"><img class="languages-icon" src="/dev-portal/img/language.svg" alt="Languages icon"/>English</a><div id="languages-dropdown" class="hide"><ul id="languages-dropdown-items"><li><a href="/dev-portal/docs/zh-CN/dev-txn-confirmation">中文</a></li></ul></div></li><script>
         const languagesMenuItem = document.getElementById("languages-menu");
         const languagesDropDown = document.getElementById("languages-dropdown");
         languagesMenuItem.addEventListener("click", function(event) {
@@ -66,5 +66,185 @@
                 };
               }
             });
-        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Confirmation</h1></header><article><div><span><p>Confirmation</p>
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Confirmation</h1></header><article><div><span><p>Now the transaction object is in one of the shard. Each shard will produce a <strong>Micro Block</strong>. Micro Blocks are aggregated by the DS Committee into a Transaction Block, after the DS Committee agrees on the Transaction Block through the pBFT consensus mechanism.</p>
+<p>After the DS Committee reaches consensus on the Transaction Block, it multicases the result to all shard nodes and lookup nodes. At this stage, the seed node will have a result for our transaction object. The result can be retrieved using the same <code>GetTransaction</code> JSON RPC API.</p>
+<p><strong>Note:</strong> The example below uses the ZilliqaJS SDK to retrieve the transaction response. The structure may be <em>slightly different</em> from the <strong>JSON RPC</strong> <code>GetTransaction</code> results.</p>
+<p>Example of getting transaction (ZilliqaJS):</p>
+<pre><code class="hljs"><span class="hljs-keyword">const</span> txn = <span class="hljs-keyword">await</span> zilliqa.blockchain.getTransaction(<span class="hljs-string">"1899b381d644a4892ca5ba5d8d60bbcc7bd121d511d55e438a8ddbdcc53272c4"</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(txn));
+</code></pre>
+<p>Example of a contract call transaction response:</p>
+<pre><code class="hljs">{
+   <span class="hljs-attr">"gasPrice"</span> : <span class="hljs-string">"3b9aca00"</span>,
+   <span class="hljs-attr">"signature"</span> : <span class="hljs-string">"0xA518EF3544C2089FB9191941D716AAD9992225851BC780CDCAD821C508284C6CFEEB9E57666B3527923910BC9C20D0192A748FDAFC4037085AF4FF9F378FAF11"</span>,
+   <span class="hljs-attr">"nonce"</span> : <span class="hljs-number">145</span>,
+   <span class="hljs-attr">"pubKey"</span> : <span class="hljs-string">"025498B9D4F573AFA2BA817D0284A634316D6590F31763DF7310E3B430C97B9D14"</span>,
+   <span class="hljs-attr">"code"</span> : <span class="hljs-string">""</span>,
+   <span class="hljs-attr">"status"</span> : <span class="hljs-number">2</span>,
+   <span class="hljs-attr">"amount"</span> : <span class="hljs-string">"0"</span>,
+   <span class="hljs-attr">"blockConfirmation"</span> : <span class="hljs-number">0</span>,
+   <span class="hljs-attr">"toAddr"</span> : <span class="hljs-string">"0x3A6Fa878230EE35a30FbECE5173A9b725Ac6AC08"</span>,
+   <span class="hljs-attr">"eventEmitter"</span> : {
+      <span class="hljs-attr">"emitter"</span> : {},
+      <span class="hljs-attr">"handlers"</span> : {},
+      <span class="hljs-attr">"promise"</span> : {}
+   },
+   <span class="hljs-attr">"gasLimit"</span> : {
+      <span class="hljs-attr">"unsigned"</span> : <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">"low"</span> : <span class="hljs-number">30000</span>,
+      <span class="hljs-attr">"high"</span> : <span class="hljs-number">0</span>
+   },
+   <span class="hljs-attr">"toDS"</span> : <span class="hljs-literal">false</span>,
+   <span class="hljs-attr">"provider"</span> : {
+      <span class="hljs-attr">"resMiddleware"</span> : {},
+      <span class="hljs-attr">"reqMiddleware"</span> : {},
+      <span class="hljs-attr">"nodeURL"</span> : <span class="hljs-string">"https://dev-api.zilliqa.com"</span>,
+      <span class="hljs-attr">"middleware"</span> : {
+         <span class="hljs-attr">"response"</span> : {},
+         <span class="hljs-attr">"request"</span> : {}
+      }
+   },
+   <span class="hljs-attr">"data"</span> : <span class="hljs-string">""</span>,
+   <span class="hljs-attr">"version"</span> : <span class="hljs-number">21823489</span>,
+   <span class="hljs-attr">"receipt"</span> : {
+      <span class="hljs-attr">"errors"</span> : {},
+      <span class="hljs-attr">"event_logs"</span> : [
+         {
+            <span class="hljs-attr">"_eventname"</span> : <span class="hljs-string">"Burn"</span>,
+            <span class="hljs-attr">"params"</span> : [
+               {
+                  <span class="hljs-attr">"value"</span> : <span class="hljs-string">"0x38be3a7b971ee76aed36e75c863f93516962f9fd"</span>,
+                  <span class="hljs-attr">"vname"</span> : <span class="hljs-string">"pool"</span>,
+                  <span class="hljs-attr">"type"</span> : <span class="hljs-string">"ByStr20"</span>
+               },
+               {
+                  <span class="hljs-attr">"vname"</span> : <span class="hljs-string">"address"</span>,
+                  <span class="hljs-attr">"type"</span> : <span class="hljs-string">"ByStr20"</span>,
+                  <span class="hljs-attr">"value"</span> : <span class="hljs-string">"0x4776f50024464df5aa4588e4827dcf031c2b95f1"</span>
+               },
+               {
+                  <span class="hljs-attr">"vname"</span> : <span class="hljs-string">"amount"</span>,
+                  <span class="hljs-attr">"value"</span> : <span class="hljs-string">"50000000000000"</span>,
+                  <span class="hljs-attr">"type"</span> : <span class="hljs-string">"Uint128"</span>
+               }
+            ],
+            <span class="hljs-attr">"address"</span> : <span class="hljs-string">"0x3a6fa878230ee35a30fbece5173a9b725ac6ac08"</span>
+         },
+         {
+            <span class="hljs-attr">"address"</span> : <span class="hljs-string">"0x38be3a7b971ee76aed36e75c863f93516962f9fd"</span>,
+            <span class="hljs-attr">"params"</span> : [
+               {
+                  <span class="hljs-attr">"vname"</span> : <span class="hljs-string">"sender"</span>,
+                  <span class="hljs-attr">"value"</span> : <span class="hljs-string">"0x3a6fa878230ee35a30fbece5173a9b725ac6ac08"</span>,
+                  <span class="hljs-attr">"type"</span> : <span class="hljs-string">"ByStr20"</span>
+               },
+               {
+                  <span class="hljs-attr">"type"</span> : <span class="hljs-string">"ByStr20"</span>,
+                  <span class="hljs-attr">"vname"</span> : <span class="hljs-string">"recipient"</span>,
+                  <span class="hljs-attr">"value"</span> : <span class="hljs-string">"0x4776f50024464df5aa4588e4827dcf031c2b95f1"</span>
+               },
+               {
+                  <span class="hljs-attr">"value"</span> : <span class="hljs-string">"42809837938793"</span>,
+                  <span class="hljs-attr">"vname"</span> : <span class="hljs-string">"amount"</span>,
+                  <span class="hljs-attr">"type"</span> : <span class="hljs-string">"Uint128"</span>
+               }
+            ],
+            <span class="hljs-attr">"_eventname"</span> : <span class="hljs-string">"TransferSuccess"</span>
+         }
+      ],
+      <span class="hljs-attr">"transitions"</span> : [
+         {
+            <span class="hljs-attr">"addr"</span> : <span class="hljs-string">"0x3a6fa878230ee35a30fbece5173a9b725ac6ac08"</span>,
+            <span class="hljs-attr">"depth"</span> : <span class="hljs-number">0</span>,
+            <span class="hljs-attr">"msg"</span> : {
+               <span class="hljs-attr">"params"</span> : [],
+               <span class="hljs-attr">"_tag"</span> : <span class="hljs-string">""</span>,
+               <span class="hljs-attr">"_amount"</span> : <span class="hljs-string">"59431276462803"</span>,
+               <span class="hljs-attr">"_recipient"</span> : <span class="hljs-string">"0x4776f50024464df5aa4588e4827dcf031c2b95f1"</span>
+            }
+         },
+         {
+            <span class="hljs-attr">"accepted"</span> : <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">"msg"</span> : {
+               <span class="hljs-attr">"params"</span> : [
+                  {
+                     <span class="hljs-attr">"value"</span> : <span class="hljs-string">"0x4776f50024464df5aa4588e4827dcf031c2b95f1"</span>,
+                     <span class="hljs-attr">"vname"</span> : <span class="hljs-string">"to"</span>,
+                     <span class="hljs-attr">"type"</span> : <span class="hljs-string">"ByStr20"</span>
+                  },
+                  {
+                     <span class="hljs-attr">"vname"</span> : <span class="hljs-string">"amount"</span>,
+                     <span class="hljs-attr">"type"</span> : <span class="hljs-string">"Uint128"</span>,
+                     <span class="hljs-attr">"value"</span> : <span class="hljs-string">"42809837938793"</span>
+                  }
+               ],
+               <span class="hljs-attr">"_tag"</span> : <span class="hljs-string">"Transfer"</span>,
+               <span class="hljs-attr">"_amount"</span> : <span class="hljs-string">"0"</span>,
+               <span class="hljs-attr">"_recipient"</span> : <span class="hljs-string">"0x38be3a7b971ee76aed36e75c863f93516962f9fd"</span>
+            },
+            <span class="hljs-attr">"addr"</span> : <span class="hljs-string">"0x3a6fa878230ee35a30fbece5173a9b725ac6ac08"</span>,
+            <span class="hljs-attr">"depth"</span> : <span class="hljs-number">0</span>
+         },
+         {
+            <span class="hljs-attr">"addr"</span> : <span class="hljs-string">"0x38be3a7b971ee76aed36e75c863f93516962f9fd"</span>,
+            <span class="hljs-attr">"depth"</span> : <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"msg"</span> : {
+               <span class="hljs-attr">"params"</span> : [
+                  {
+                     <span class="hljs-attr">"vname"</span> : <span class="hljs-string">"sender"</span>,
+                     <span class="hljs-attr">"value"</span> : <span class="hljs-string">"0x3a6fa878230ee35a30fbece5173a9b725ac6ac08"</span>,
+                     <span class="hljs-attr">"type"</span> : <span class="hljs-string">"ByStr20"</span>
+                  },
+                  {
+                     <span class="hljs-attr">"vname"</span> : <span class="hljs-string">"recipient"</span>,
+                     <span class="hljs-attr">"value"</span> : <span class="hljs-string">"0x4776f50024464df5aa4588e4827dcf031c2b95f1"</span>,
+                     <span class="hljs-attr">"type"</span> : <span class="hljs-string">"ByStr20"</span>
+                  },
+                  {
+                     <span class="hljs-attr">"type"</span> : <span class="hljs-string">"Uint128"</span>,
+                     <span class="hljs-attr">"vname"</span> : <span class="hljs-string">"amount"</span>,
+                     <span class="hljs-attr">"value"</span> : <span class="hljs-string">"42809837938793"</span>
+                  }
+               ],
+               <span class="hljs-attr">"_tag"</span> : <span class="hljs-string">"RecipientAcceptTransfer"</span>,
+               <span class="hljs-attr">"_amount"</span> : <span class="hljs-string">"0"</span>,
+               <span class="hljs-attr">"_recipient"</span> : <span class="hljs-string">"0x4776f50024464df5aa4588e4827dcf031c2b95f1"</span>
+            }
+         },
+         {
+            <span class="hljs-attr">"msg"</span> : {
+               <span class="hljs-attr">"_recipient"</span> : <span class="hljs-string">"0x3a6fa878230ee35a30fbece5173a9b725ac6ac08"</span>,
+               <span class="hljs-attr">"_amount"</span> : <span class="hljs-string">"0"</span>,
+               <span class="hljs-attr">"_tag"</span> : <span class="hljs-string">"TransferSuccessCallBack"</span>,
+               <span class="hljs-attr">"params"</span> : [
+                  {
+                     <span class="hljs-attr">"type"</span> : <span class="hljs-string">"ByStr20"</span>,
+                     <span class="hljs-attr">"vname"</span> : <span class="hljs-string">"sender"</span>,
+                     <span class="hljs-attr">"value"</span> : <span class="hljs-string">"0x3a6fa878230ee35a30fbece5173a9b725ac6ac08"</span>
+                  },
+                  {
+                     <span class="hljs-attr">"vname"</span> : <span class="hljs-string">"recipient"</span>,
+                     <span class="hljs-attr">"type"</span> : <span class="hljs-string">"ByStr20"</span>,
+                     <span class="hljs-attr">"value"</span> : <span class="hljs-string">"0x4776f50024464df5aa4588e4827dcf031c2b95f1"</span>
+                  },
+                  {
+                     <span class="hljs-attr">"value"</span> : <span class="hljs-string">"42809837938793"</span>,
+                     <span class="hljs-attr">"vname"</span> : <span class="hljs-string">"amount"</span>,
+                     <span class="hljs-attr">"type"</span> : <span class="hljs-string">"Uint128"</span>
+                  }
+               ]
+            },
+            <span class="hljs-attr">"addr"</span> : <span class="hljs-string">"0x38be3a7b971ee76aed36e75c863f93516962f9fd"</span>,
+            <span class="hljs-attr">"depth"</span> : <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"accepted"</span> : <span class="hljs-literal">false</span>
+         }
+      ],
+      <span class="hljs-attr">"epoch_num"</span> : <span class="hljs-string">"1474024"</span>,
+      <span class="hljs-attr">"accepted"</span> : <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">"success"</span> : <span class="hljs-literal">true</span>, <span class="hljs-comment">// indicates a transaction is confirmed</span>
+      <span class="hljs-attr">"cumulative_gas"</span> : <span class="hljs-number">5826</span>
+   }
+}
+</code></pre>
+<p>A transaction is confirmed if under the <code>receipt</code> section, <code>&quot;success&quot;: true</code> is shown.</p>
 </span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/dev-portal/docs/en/dev-txn-polling"><span class="arrow-prev">← </span><span>Polling</span></a><a class="docs-next button" href="/dev-portal/docs/en/dev-txn-receipt"><span>Receipt</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/dev-portal/" class="nav-home"><img src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal" width="66" height="70"/></a><div><h5>Links</h5><a href="https://www.github.com/Zilliqa" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://blog.zilliqa.com/" target="_blank" rel="noreferrer noopener">Medium</a><a href="https://twitter.com/zilliqa" target="_blank" rel="noreferrer noopener">Twitter</a><a href="https://discord.gg/XMRE9tt" target="_blank" rel="noreferrer noopener">Discord</a><a href="https://www.youtube.com/channel/UCvinnFbf0u71cajoxKcfZIQ" target="_blank" rel="noreferrer noopener">YouTube</a></div></section><section class="copyright">Copyright © 2020 Zilliqa Research Pte. Ltd.</section></footer></div></body></html>
