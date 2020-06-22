@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Rejoin Mechanism · Zilliqa Developer Portal</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="This section will walk through joining and rejoining of different types of nodes."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Rejoin Mechanism · Zilliqa Developer Portal"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ansnunez.github.io/dev-portal/"/><meta property="og:description" content="This section will walk through joining and rejoining of different types of nodes."/><meta property="og:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><link rel="shortcut icon" href="/dev-portal/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/dev-portal/js/scrollSpy.js"></script><link rel="stylesheet" href="/dev-portal/css/main.css"/><script src="/dev-portal/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/dev-portal/en"><img class="logo" src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal"/><h2 class="headerTitleWithLogo">Zilliqa Developer Portal</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/dev-portal/docs/en/basics-intro-blockchain" target="_self">Basics</a></li><li class=""><a href="/dev-portal/docs/en/dev-started-introduction" target="_self">Developers</a></li><li class=""><a href="/dev-portal/docs/en/mining-general-info" target="_self">Miners</a></li><li class=""><a href="/dev-portal/docs/en/staking-getting-started" target="_self">Exchanges</a></li><li class=""><a href="/dev-portal/docs/en/contribute-buildzil" target="_self">Contributors</a></li><span><li><a id="languages-menu" href="#"><img class="languages-icon" src="/dev-portal/img/language.svg" alt="Languages icon"/>English</a><div id="languages-dropdown" class="hide"><ul id="languages-dropdown-items"><li><a href="/dev-portal/docs/zh-CN/core-rejoin-mechanism">中文</a></li></ul></div></li><script>
+        const languagesMenuItem = document.getElementById("languages-menu");
+        const languagesDropDown = document.getElementById("languages-dropdown");
+        languagesMenuItem.addEventListener("click", function(event) {
+          event.preventDefault();
+
+          if (languagesDropDown.className == "hide") {
+            languagesDropDown.className = "visible";
+          } else {
+            languagesDropDown.className = "hide";
+          }
+        });
+      </script></span></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Rejoin Mechanism</h1></header><article><div><span><p>This section will walk through joining and rejoining of different types of nodes.</p>
+<h3><a class="anchor" aria-hidden="true" id="new-node-joining---existing-shard-node-joiningminer-node-was-relaunchedrestarted-via-launcher-script"></a><a href="#new-node-joining---existing-shard-node-joiningminer-node-was-relaunchedrestarted-via-launcher-script" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>New node joining  / Existing shard node joining(Miner node was relaunched/restarted via launcher script)</h3>
+<ol>
+<li>launch_docker.sh / launch.sh / start.sh download persistence from AWS S3 incremental db using <code>download_incr_db.py</code>. It skips downloading microbBlocks and txBodies. More details of download_incr_db.py can be found <a href="incremental-db.md">here</a>.</li>
+<li>Above launcher script later starts the zilliqa process with <code>syncType = NEW_SYNC</code>.</li>
+<li>Zilliqa process retrieves Persistence Storage from dowloaded DB in (1).</li>
+<li>It regenerates the current state using base state and state-deltas already fetched from incremental db.</li>
+<li>syncType is not No_SYNC. so it blocks some messages that will be received as a healthy normal node.</li>
+<li>It starts synchronization with <code>Node::StartSynchronization</code>.</li>
+</ol>
+<h4><a class="anchor" aria-hidden="true" id="nodestartsynchronization"></a><a href="#nodestartsynchronization" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Node::StartSynchronization</code></h4>
+<ol>
+<li><p>Send request to upper seeds (level2lookup 10- 14) so as to remove node IP from their relaxed blacklist, if any.</p></li>
+<li><p>While Loop until syncType becomes NO_SYNC:</p></li>
+<li><p>Fetch Latest DSBlocks and Latest TxBlocks from a random upper seed.</p></li>
+<li><p>On receiving new TxBlock, fetch the corresponding state-deltas and calculate current state. Check whether it is a vacuous block, if so, after calculating state will move the state update to disk.</p></li>
+<li><p>If not vacuous epoch,
+a) Fetch the latest Sharding Structure from a random upper seed and identify if already part of any shard.
+b) If it's not part of any shard, then it's indeed a new miner then go back to step (4).
+c) <strong>Otherwise, already part of one of shard</strong>. Set my shard members and shardId. Set <code>sycType = NO_SYNC</code> and send request to shard peers to remove IP from their relaxed blacklist.</p>
+<hr>
+<p><strong>NOTE:</strong>
+If connection to node fails with error <code>EHOSTDOWN</code> or <code>ECONNREFUSED</code>, it's blacklisted in <code>relaxed</code> category. Otherwise in strict category.</p>
+<hr>
+<p>d) Start next Tx epoch where it initializes node variables like m_consensusID, m_consensusLeaderID, etc. Identify being BACKUP or leader, initializes Rumor Manager and starts with MicroBlockConsensus.
+The normal node now successfully joined the network as Shard Node.</p></li>
+<li><p>If vacuous epoch, fetch Latest DS Committee Info and send request to a random upper seed to let him know when to start pow.</p></li>
+<li><p>On receiving notification message from seed, start Init Mining and submit PoW.</p></li>
+<li><p>If received DSBlock within timeout and finds himself in sharding information, change <code>syncType = NO_SYNC</code>. Stop blocking messages. <strong>The normal node now successfully joined the network as Shard Node</strong> .</p></li>
+<li><p>If timedout,
+a) Try to fetch latest DSBlock from random seed. If successfully got new DSBlock means lost pow this time.
+It will continue syncing until next vacuous epoch as above by invoking <code>Node::StartSynchronization</code>.
+b) If failed to get new DSBlock, set <code>syncType = NORMAL_SYNC</code> and triggers <code>Node::RejoinAsNormal</code>.</p></li>
+</ol>
+<h4><a class="anchor" aria-hidden="true" id="noderejoinasnormal"></a><a href="#noderejoinasnormal" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Node::RejoinAsNormal</code></h4>
+<ol>
+<li>Set <code>SyncType = NORMAL_SYNC</code>.</li>
+<li>Download Persistence from S3 incremental DB.</li>
+<li>Retrieves Persistence Storage from dowloaded DB in step (2).</li>
+<li>It regenerates the current state using base state and state-deltas already fetched from incremental db.</li>
+<li>syncType is not No_SYNC. so it blocks some messages that will be received as a healthy normal node.</li>
+<li>It starts synchronization with <code>Node::StartSynchronization</code>.</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="shard-node---daemon-starts-the-killed-zilliqa-process-applicable-only-for-zilliqa-nodes"></a><a href="#shard-node---daemon-starts-the-killed-zilliqa-process-applicable-only-for-zilliqa-nodes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Shard node - Daemon starts the killed zilliqa process (applicable only for zilliqa nodes)</h3>
+<ol>
+<li>Daemon starts the process with syncType in previous run. <code>i.e. SyncType = 5</code></li>
+<li>Its as good as recovery of any node from exising local persistence here onwards. Refer <a href="recovery.md">Recovery</a>.</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="existing-ds-node-joining--ds-node-was-relaunchedrestarted-via-launcher-script"></a><a href="#existing-ds-node-joining--ds-node-was-relaunchedrestarted-via-launcher-script" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Existing DS node joining ( DS node was relaunched/restarted via launcher script)</h3>
+<ol>
+<li>launch_docker.sh / launch.sh / start.sh download persistence from AWS S3 incremental db using <code>download_incr_db.py</code>. It skips downloading microBlocks and txBodies. More details of download_incr_db.py can be found here.</li>
+<li>Above launcher script later starts the zilliqa process with <code>syncType = NEW_SYNC</code>.</li>
+<li>Zilliqa process retrieves Persistence Storage from dowloaded DB in step (1).</li>
+<li>syncType is not <code>NO_SYNC</code>. so it blocks some messages that will be received as a healthy normal node.</li>
+<li>It regenerates the current state using base state and state-deltas already fetched from incremental db.</li>
+<li>Check if node is part of current ds committee, If so
+a) Save coin base for final block and all microblocks, from last DS epoch to current TX epoch.
+b) Send request to upper seeds (level2lookup 10- 14) so as to remove node IP from their relaxed blacklist, if any.
+c) If any of the coinbase is missing for any epoch or any shard, request cosigs for them from a random upper seed.
+d) Set <code>syncType = DS_SYNC</code>.</li>
+<li>It starts synchronization with <code>DirectoryService::StartSynchronization</code>.</li>
+</ol>
+<h4><a class="anchor" aria-hidden="true" id="directoryservicestartsynchronization"></a><a href="#directoryservicestartsynchronization" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>DirectoryService::StartSynchronization</code></h4>
+<ol>
+<li>Send request to upper seeds (level2lookup 10- 14) so as to remove node IP from their relaxed blacklist, if any.</li>
+<li>While Loop until SyncType becomes NO_SYNC:</li>
+<li>Fetch Latest DSBlocks and Latest TxBlocks from a random upper seed.</li>
+<li>On receiving new TxBlock, fetch the corresponding statedeltas and calculate current state. Check whether it is a vacuous block, if so, after calculating state will move the state update to disk.</li>
+<li>If node is dsguard and if rejoining was triggered because the pod/instance was deleted i.e. <code>m_ds.m_dsguardPodDelete = true</code>(Refer <a href="recovery.md##DSGuardNodePod/InstanceDeletion">DSGuard Pod Deletion</a>), then invokes <code>FinishRejoinAsDS</code> only if its vacous epoch.</li>
+<li>Otherwise, trigger <code>FinishRejoinAsDS</code> immediately.</li>
+</ol>
+<h4><a class="anchor" aria-hidden="true" id="directoryservicefinishrejoinasds"></a><a href="#directoryservicefinishrejoinasds" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>DirectoryService::FinishRejoinAsDS</code></h4>
+<ol>
+<li>Recheck if node is still part of ds committee. If not triggers <code>RejoinAsNormal</code>.</li>
+<li>If node is awaiting sending new IP to network i.e. <code>m_ds.m_awaitingToSubmitNetworkInfoUpdate = true</code>(Refer <a href="recovery.md##DSGuardNodePod/InstanceDeletion">DSGuard Pod Deletion</a>), send new IP to the network.</li>
+<li>If current epoch is already first tx epoch of new ds epoch, fetch the sharding structure again.</li>
+<li>If not vacuous epoch, start next Tx epoch where it initializes node variables like m_consensusID, m_consensusLeaderID, etc. Identify being BACKUP or leader, initializes Rumor Manager and starts with state <code>MICROBLOCK_SUBMISSION</code>.</li>
+<li>If vacuous epoch, start new ds epoch and starts with state <code>POW_SUBMISSION</code>.</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="ds-node---when-vc-precheck-fails"></a><a href="#ds-node---when-vc-precheck-fails" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>DS node - when VC Precheck fails</h3>
+<p>VC Precheck fails if next tx block or ds block got mined, but node failed to reach consensus for that block.
+After which is triggers <code>DirectoryService::RejoinAsDS</code>.</p>
+<h4><a class="anchor" aria-hidden="true" id="directoryservicerejoinasds"></a><a href="#directoryservicerejoinasds" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>DirectoryService::RejoinAsDS</code></h4>
+<ol>
+<li>Set <code>SyncType = DS_SYNC</code>.</li>
+<li>Download Persistence from S3 incremental DB.</li>
+<li>It retrieves Persistence Storage from dowloaded DB in step (2).</li>
+<li>It starts synchronization with <code>DirectoryService::StartSynchronization</code>.</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="ds-node---daemon-starts-the-killed-zilliqa-process-applicable-only-for-zilliqa-nodes"></a><a href="#ds-node---daemon-starts-the-killed-zilliqa-process-applicable-only-for-zilliqa-nodes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>DS node - Daemon starts the killed zilliqa process (applicable only for zilliqa nodes)</h3>
+<ol>
+<li>Daemon starts the process with syncType in previous run. <code>i.e. SyncType = 5</code></li>
+<li>Its as good as recovery of any node from existing local persistence here onwards. Refer <a href="recovery.md">Recovery</a></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="new-seed-node-joining"></a><a href="#new-seed-node-joining" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>New Seed Node joining</h3>
+<ol>
+<li>launch_docker.sh / launch.sh / start.sh download persistence from AWS S3 incremental db using <code>download_incr_db.py</code>. More details of download_incr_db.py can be found here <a href="incremental-db.md">here</a>.</li>
+<li>Above launcher script later starts the zilliqa process with <code>syncType = NEW_LOOKUP_SYNC</code>.</li>
+<li>Zilliqa process retrieves Persistence Storage from dowloaded DB in step (1).</li>
+<li>It regenerates the current state using base state and statedeltas already fetched from incremental db.</li>
+<li>SyncType is not <code>NO_SYNC</code>. so it blocks some messages that will be received as a healthy seed node.</li>
+<li>It starts syncronization with <code>Lookup::InitSync</code>.</li>
+</ol>
+<h4><a class="anchor" aria-hidden="true" id="lookupinitsync"></a><a href="#lookupinitsync" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Lookup::InitSync</code></h4>
+<ol>
+<li>While Loop until SyncType becomes <code>NO_SYNC</code>:</li>
+<li>Fetch Latest DSBlocks and Latest TxBlocks from a random upper seed.</li>
+<li>On receiving new TxBlock, fetch the corresponding statedeltas and calculate current state. Check whether it is a vacuous block, if so, after calculating state will move the state update to disk.</li>
+<li>Fetch UnavailableMicroBlockHashes for the newly fetched txBlocks from random lookup nodes. And also check for any missing mbs from last N txBlocks and fetch them from random lookup nodes, if any. (See <code>Lookup::CommitTxBlocks</code>)</li>
+<li>Fetch latest DSInfo and Set <code>syncType = NO_SYNC</code>, then seed is ready again.</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="seed-node-rejoining-also-applicable-for-newlookup--level2lookup-nodes"></a><a href="#seed-node-rejoining-also-applicable-for-newlookup--level2lookup-nodes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Seed Node Rejoining (Also applicable for newlookup / level2lookup nodes)</h3>
+<p>Seed nodes might miss receiving any final block or ds block from multiplier (See more at ), in which case it triggers <code>RejoinAsNewlookup</code> to rejoin.</p>
+<ol>
+<li>Set <code>syncType = NEW_LOOKUP_SYNC</code>.</li>
+<li>If the number of missing final block are over NUM_FINAL_BLOCK_PER_POW (extreme bound), rejoin from S3 incremental db will be used. <code>i.e. RejoinAsNewlookup(fromLookup = false)</code></li>
+<li>Otherwise, rejoin by fetching missing final blocks from random lookup nodes. <code>i.e. RejoinAsNewlookup(fromLookup = true)</code></li>
+</ol>
+<h4><a class="anchor" aria-hidden="true" id="lookuprejoinasnewlookup"></a><a href="#lookuprejoinasnewlookup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Lookup::RejoinAsNewlookup</code></h4>
+<p>If <code>fromLookup = true</code>:</p>
+<ol>
+<li>Invoke <code>Lookup::StartSynchronization</code></li>
+</ol>
+<p>If <code>fromLookup = false</code>:</p>
+<ol>
+<li>Download Persistence from S3 incremental DB.</li>
+<li>It retrieves Persistence Storage from dowloaded DB in step (1).</li>
+<li>It starts syncronization with <code>Lookup::InitSync</code>.</li>
+</ol>
+<h4><a class="anchor" aria-hidden="true" id="lookupstartsynchronization"></a><a href="#lookupstartsynchronization" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Lookup::StartSynchronization</code></h4>
+<ol>
+<li>It fetches latest TxBlock and DSBlock from a random upper seed.</li>
+<li>On receiving new TxBlock, fetch the corresponding statedeltas and calculate current state. Check whether it is a vacuous block, if so, after calculating state will move the state update to disk.</li>
+<li>Fetch UnavailableMicroBlockHashes for the newly fetched txBlocks from random lookup nodes. And also check for any missing mbs from last N txBlocks and fetch them from random lookup nodes, if any. (See <code>Lookup::CommitTxBlocks</code>)</li>
+<li>Fetch latest DSInfo and Set <code>syncType = NO_SYNC</code>, then seed/lookup is ready again.</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="lookup-node-rejoining"></a><a href="#lookup-node-rejoining" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Lookup Node Rejoining</h3>
+<p>Lookup nodes might miss receiving any final block or ds block from network, in which case it triggers <code>RejoinAsLookup</code> to rejoin.</p>
+<h4><a class="anchor" aria-hidden="true" id="lookuprejoinaslookup"></a><a href="#lookuprejoinaslookup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Lookup::RejoinAsLookup</code></h4>
+<ol>
+<li>Invoke <code>Lookup::StartSynchronization</code>.</li>
+</ol>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/dev-portal/" class="nav-home"><img src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal" width="66" height="70"/></a><div><h5>Links</h5><a href="https://www.github.com/Zilliqa" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://blog.zilliqa.com/" target="_blank" rel="noreferrer noopener">Medium</a><a href="https://twitter.com/zilliqa" target="_blank" rel="noreferrer noopener">Twitter</a><a href="https://discord.gg/XMRE9tt" target="_blank" rel="noreferrer noopener">Discord</a><a href="https://www.youtube.com/channel/UCvinnFbf0u71cajoxKcfZIQ" target="_blank" rel="noreferrer noopener">YouTube</a></div></section><section class="copyright">Copyright © 2020 Zilliqa Research Pte. Ltd.</section></footer></div></body></html>
