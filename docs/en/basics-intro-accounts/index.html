@@ -68,31 +68,22 @@
             });
         </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Accounts</h1></header><article><div><span><p>The Zilliqa blockchain follows an account-based model similar to Ethereum.
 Accounts can hold native assets such as $ZIL or app-layer tokens issued as
-Fungible and Non-Fungible assets. And assets can be transferred from one
+Fungible or Non-Fungible assets. These assets can be transferred from one
 account to another.</p>
 <p>The collective state of all the accounts represents the global state of the
 blockchain. Each account is identified by its address which is a 20-byte
 string generated using a hash function.</p>
-<p>The network supports two types of accounts:</p>
+<p>Similar to Ethereum, the Zilliqa network supports two types of accounts:</p>
 <ol>
-<li><p>Externally-Owned Account (aka User Account) - An account controlled by an
+<li>Externally-Owned Account (aka User Account): An account controlled by an
 end user who owns a public-private cryptographic key pair. The address of an
-externally-owned account is essentially a truncated hash of the public key.</p></li>
-<li><p>Contract Account - An account that has a smart contract code associated with
+externally-owned account is essentially a truncated hash of the public key.</li>
+</ol>
+<ol start="2">
+<li>Contract Account: An account that has a smart contract code associated with
 it. A contract account gets created by a user when she deploys a smart
-contract on the network. The address of a contract account is the hash of
-the public key of the user account and some other information.</p></li>
+contract on the network. The address of a contract account is the hash of the
+address of the user account that deployed the contract and some other
+information.</li>
 </ol>
-<h2><a class="anchor" aria-hidden="true" id="externally-owned-aka-user-accounts"></a><a href="#externally-owned-aka-user-accounts" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Externally-Owned (aka User) Accounts</h2>
-<ol>
-<li>can send transactions (ether transfer or trigger contract code)</li>
-<li>is controlled by private keys</li>
-<li>has no associated code</li>
-</ol>
-<h2><a class="anchor" aria-hidden="true" id="contract-owned-accounts"></a><a href="#contract-owned-accounts" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Contract Owned Accounts</h2>
-<ol>
-<li>has associated code</li>
-<li>code execution is triggered by transactions or messages (calls) received from other contracts</li>
-<li>when executed - perform operations of arbitrary complexity (Turing completeness) - manipulate its own persistent storage, i.e., can have its own permanent state - can call other contracts.</li>
-</ol>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/dev-portal/docs/en/basics-intro-consensus"><span class="arrow-prev">← </span><span>Consensus mechanism</span></a><a class="docs-next button" href="/dev-portal/docs/en/basics-intro-txns"><span>Transactions</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#externally-owned-aka-user-accounts">Externally-Owned (aka User) Accounts</a></li><li><a href="#contract-owned-accounts">Contract Owned Accounts</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/dev-portal/" class="nav-home"><img src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal" width="66" height="70"/></a><div><h5>Links</h5><a href="https://www.github.com/Zilliqa" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://blog.zilliqa.com/" target="_blank" rel="noreferrer noopener">Medium</a><a href="https://twitter.com/zilliqa" target="_blank" rel="noreferrer noopener">Twitter</a><a href="https://discord.gg/XMRE9tt" target="_blank" rel="noreferrer noopener">Discord</a><a href="https://www.youtube.com/channel/UCvinnFbf0u71cajoxKcfZIQ" target="_blank" rel="noreferrer noopener">YouTube</a></div></section><section class="copyright">Copyright © 2020 Zilliqa Research Pte. Ltd.</section></footer></div></body></html>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/dev-portal/docs/en/basics-intro-consensus"><span class="arrow-prev">← </span><span>Consensus mechanism</span></a><a class="docs-next button" href="/dev-portal/docs/en/basics-intro-txns"><span>Transactions</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/dev-portal/" class="nav-home"><img src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal" width="66" height="70"/></a><div><h5>Links</h5><a href="https://www.github.com/Zilliqa" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://blog.zilliqa.com/" target="_blank" rel="noreferrer noopener">Medium</a><a href="https://twitter.com/zilliqa" target="_blank" rel="noreferrer noopener">Twitter</a><a href="https://discord.gg/XMRE9tt" target="_blank" rel="noreferrer noopener">Discord</a><a href="https://www.youtube.com/channel/UCvinnFbf0u71cajoxKcfZIQ" target="_blank" rel="noreferrer noopener">YouTube</a></div></section><section class="copyright">Copyright © 2020 Zilliqa Research Pte. Ltd.</section></footer></div></body></html>
