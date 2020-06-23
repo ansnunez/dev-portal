@@ -70,61 +70,49 @@
 <blockquote>
 <p>Note: DS committee ejection has now been superseded by <a href="#ds-reputation">DS Reputation</a>.</p>
 </blockquote>
-<h3><a class="anchor" aria-hidden="true" id="usage"></a><a href="#usage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Usage</h3>
-<p>This setup allows <code>n</code> nodes to join and leave the DS committee at every DS epoch.</p>
-<h3><a class="anchor" aria-hidden="true" id="setup"></a><a href="#setup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setup</h3>
+<p>This setup allows <code>n</code> nodes to join and leave the DS committee at every DS epoch. The steps are:</p>
 <ol>
-<li>[DS Block header] Removal of <code>nonce</code> and <code>minerPubKey</code></li>
-<li>[DS Block header] Add <code>ordered_map&lt;PubKey, Peer&gt;</code> to represent <code>n</code> number of incoming DS members. Ordering based on <code>Pubkey</code></li>
-<li>[DS Block header] Update <code>operator==</code> to reflect changes to DS block header</li>
-<li>[DS Block header] Change <code>SIZE</code> to a member function of DS Block header as calculation of size is no longer static due to <code>n</code> number of incoming DS members</li>
-<li>[Unit test] Update unit test for DS persistence. Use <code>blocknum</code> instead of <code>nonce</code></li>
-<li>[DS Block announcement] Removal of “winner peer” as the information is now embedded inside DS block</li>
-<li>[Protobuf] Various serialization/deserialization changes to reflect new DS block structure</li>
-</ol>
-<h3><a class="anchor" aria-hidden="true" id="procedure"></a><a href="#procedure" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Procedure</h3>
-<ol>
-<li>Nodes submit PoWs (For Diff and DS Diff) as per the existing protocol</li>
+<li>Nodes submit PoWs (for difficulty and DS difficulty)</li>
 <li>DS leader composes DS Block
 <ul>
-<li>DS leader determines how many nodes to elect into DS committee by using <code>min(number of eligible pow submission, NUM_DS_ELECTION)</code> where <code>NUM_DS_ELECTION</code> is a constant in constants.xml</li>
-<li>Hence, number of incoming nodes ranges from 0 to <code>NUM_DS_ELECTION</code></li>
+<li>DS leader determines how many nodes to elect into DS committee by using <code>min(number of eligible pow submission, NUM_DS_ELECTION)</code></li>
+<li>Hence, number of incoming DS nodes ranges from 0 to <code>NUM_DS_ELECTION</code></li>
 </ul></li>
-<li>DS leader adds incoming DS members information into the map inside DS Block</li>
-<li>DS leader removes incoming DS members from <code>sortedPoWSolns</code> to ensure the incoming DS members do not get sharded into any of the shards</li>
-<li>After composing DS Block, the function returns the number of incoming DS members, to be used a later time</li>
+<li>DS leader adds incoming DS members' information to the map inside DS Block</li>
+<li>DS leader removes incoming DS members from <code>sortedPoWSolns</code> to ensure the incoming DS members do not get added into any of the shards</li>
+<li>After composing DS Block, <code>ComputeDSBlockParameters()</code> returns the number of incoming DS members (to be used a later step)</li>
 <li>Now, it is time to eject <code>n</code> number of (oldest) DS members from the DS committee and downgrade these to shard members</li>
-<li>DS leader manually adds the ejected members into <code>m_allPoWConns</code> and <code>sortedPoWSolns</code>
+<li>DS leader adds the ejected members into <code>m_allPoWConns</code> and <code>sortedPoWSolns</code>
 <ul>
-<li>As downgraded members do not perform PoWs, dummy PoW solution is added in its place</li>
+<li>As downgraded members do not perform PoWs, dummy PoW solutions are given to these</li>
 <li>Dummy PoW solution in this case is calculated using <code>sha256(node’s pubkey)</code></li>
 </ul></li>
 <li>Now, it is time to compose the sharding structure. There is no major change to this portion</li>
 <li>DS Block consensus begins and is successfully completed</li>
 <li>DS leader and backups do the following
 <ul>
-<li>DS leader and backups will now do <code>UpdateDSCommitteeComposition()</code> first before doing <code>UpdateMyDSModeAndConsensusId()</code>. This is to be consistent with what the incoming members will do. Also, having such changes enable much easier calculation of <code>consensusMyID</code>. <code>UpdateMyDSModeAndConsensusId()</code> was also refactored to make it look cleaner</li>
-<li>Add <code>n</code> number of incoming DS members inside mediator DS committee data structure</li>
-<li>Pop <code>n</code> number of DS members from mediator DS committee data structure</li>
-<li>Oldest <code>n</code> members are decided by <code>(consensusID + n incoming DS members) &gt;= size of DS committee</code>. Such nodes change their mode to IDLE</li>
-<li>Other DS members increment their <code>consensusMyID</code> by <code>n</code> and update the status to either DS leader or backup (based on existing protocol)</li>
+<li>DS leader and backups run <code>UpdateDSCommitteeComposition()</code> first before doing <code>UpdateMyDSModeAndConsensusId()</code>. This is to be consistent with what the incoming members will do. Also, having such changes enable much easier calculation of <code>consensusMyID</code></li>
+<li>Add <code>n</code> number of incoming DS members inside the DS committee data structure in <code>mediator</code></li>
+<li>Pop <code>n</code> number of DS members from the DS committee data structure in <code>mediator</code></li>
+<li>The oldest <code>n</code> members are decided by <code>(consensusID + n incoming DS members) &gt;= size of DS committee</code>. These nodes change their mode to <code>IDLE</code></li>
+<li>Other DS members increment their <code>consensusMyID</code> by <code>n</code> and update the status to either DS leader or backup</li>
 </ul></li>
-<li>DS committee sends the DS Block and sharding structure to all PoW submitters. This message now does not include winner peer as part of the changes highlighted in setup section</li>
-<li>Incoming DS members receive the DS Block, process it, and update their DS <code>consensusMyID</code> based on ordering found in the map in the DS Block. From here onwards, these nodes are part of the DS committee</li>
-<li>Shard members process the DS Block and update the DS committee composition based on number of incoming DS member(s)</li>
+<li>DS committee sends the DS Block and sharding structure to all PoW submitters</li>
+<li>Incoming DS members receive the DS Block, process it, and update their DS <code>consensusMyID</code> based on the ordering found in the map in the DS Block. From here onwards, these nodes are part of the DS committee</li>
+<li>Shard members process the DS Block and update their view of the DS committee</li>
 </ol>
 <h2><a class="anchor" aria-hidden="true" id="ds-reputation"></a><a href="#ds-reputation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>DS Reputation</h2>
-<p>This feature is to evaluate the performance of DS nodes. The underperformed DS nodes will be kicked out of DS committee first instead of the oldest DS nodes. It can push node owners to use better hardware and network for the DS nodes, so can improve the stability and the efficiency of the blockchain consensus protocol.</p>
-<h3><a class="anchor" aria-hidden="true" id="working-mechanism"></a><a href="#working-mechanism" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Working Mechanism</h3>
+<p>The integration of the DS reputation within DS MIMO enables identification and removal of underperforming DS nodes instead of simply the oldest DS nodes. This encourages node owners to use better hardware for the DS nodes, improving the stability and efficiency of the network, particularly during consensus protocol.</p>
+<p>The steps are:</p>
 <ol>
-<li>When run DS block consensus, the performance of each DS node will be evaluated based on the rewards they got from last DS epoch until the current DS epoch.</li>
-<li>At the beginning of each DS epoch, DS leader will call &quot;DetermineByzantineNodes&quot; to find out the underperformed DS nodes based on the criteria set in constants.xml. If found underperformed ds nodes, their pubkeys will be included in DS block announcement and send to all DS backup nodes.</li>
-<li>A DS backup node receives the DS announcement, it call &quot;VerifyRemovedByzantineNodes&quot; to verify the proposed DS nodes going to remove from DS committee are really unerperformed. If the check pass, it will accept it and continue the consensus protocol. Otherwise, it will refuse to commit to the announcement made by the leader. If more than 1/3 of the nodes in the DS committee does not commit to the announcement, view change will be triggered.</li>
-<li>After the DS block consensus is done, the selected underperformed DS nodes will be removed from the DS committee and the blockchain network, they need to do PoW again to rejoin the network. The shard nodes which finished DS PoW will join DS committee to replace the removed DS nodes, hence, can keep the size of the DS committee the same.</li>
+<li>During DS Block consensus, the performance of each DS node is evaluated based on the rewards they received in the last DS epoch</li>
+<li>DS leader calls <code>DetermineByzantineNodes()</code> to find out which DS nodes underperformed (according to the criteria set in constants.xml). The public keys of these underperforming nodes are included in DS Block consensus announcement</li>
+<li>DS backup nodes call <code>VerifyRemovedByzantineNodes</code> when processing the announcement to verify that the DS nodes proposed for removal from the committee are really underperforming. Verification must pass for consensus to succeed; a view change will be triggered otherwise</li>
+<li>After DS Block consensus, the underperforming DS nodes are removed from the DS committee and the blockchain network. They will need to do PoW again to rejoin the network</li>
 </ol>
-<h3><a class="anchor" aria-hidden="true" id="reference"></a><a href="#reference" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Reference</h3>
+<h3><a class="anchor" aria-hidden="true" id="references"></a><a href="#references" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>References</h3>
 <ol>
 <li><a href="https://github.com/nnamon/zilliqa-research/blob/master/ds_reputation/proposal.md">DS Reputation Proposal</a></li>
 <li><a href="https://github.com/Zilliqa/Zilliqa/pull/1587">PR 1587</a></li>
 </ol>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/dev-portal/docs/en/core-data"><span class="arrow-prev">← </span><span>Data Layer</span></a><a class="docs-next button" href="/dev-portal/docs/en/core-lookup-servers"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#ds-committee-multiple-in-multiple-out-ds-mimo-setup">DS Committee Multiple In Multiple Out (DS MIMO) Setup</a><ul class="toc-headings"><li><a href="#usage">Usage</a></li><li><a href="#setup">Setup</a></li><li><a href="#procedure">Procedure</a></li></ul></li><li><a href="#ds-reputation">DS Reputation</a><ul class="toc-headings"><li><a href="#working-mechanism">Working Mechanism</a></li><li><a href="#reference">Reference</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/dev-portal/" class="nav-home"><img src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal" width="66" height="70"/></a><div><h5>Links</h5><a href="https://www.github.com/Zilliqa" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://blog.zilliqa.com/" target="_blank" rel="noreferrer noopener">Medium</a><a href="https://twitter.com/zilliqa" target="_blank" rel="noreferrer noopener">Twitter</a><a href="https://discord.gg/XMRE9tt" target="_blank" rel="noreferrer noopener">Discord</a><a href="https://www.youtube.com/channel/UCvinnFbf0u71cajoxKcfZIQ" target="_blank" rel="noreferrer noopener">YouTube</a></div></section><section class="copyright">Copyright © 2020 Zilliqa Research Pte. Ltd.</section></footer></div></body></html>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/dev-portal/docs/en/core-data"><span class="arrow-prev">← </span><span>Data Layer</span></a><a class="docs-next button" href="/dev-portal/docs/en/core-lookup-servers"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#ds-committee-multiple-in-multiple-out-ds-mimo-setup">DS Committee Multiple In Multiple Out (DS MIMO) Setup</a></li><li><a href="#ds-reputation">DS Reputation</a><ul class="toc-headings"><li><a href="#references">References</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/dev-portal/" class="nav-home"><img src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal" width="66" height="70"/></a><div><h5>Links</h5><a href="https://www.github.com/Zilliqa" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://blog.zilliqa.com/" target="_blank" rel="noreferrer noopener">Medium</a><a href="https://twitter.com/zilliqa" target="_blank" rel="noreferrer noopener">Twitter</a><a href="https://discord.gg/XMRE9tt" target="_blank" rel="noreferrer noopener">Discord</a><a href="https://www.youtube.com/channel/UCvinnFbf0u71cajoxKcfZIQ" target="_blank" rel="noreferrer noopener">YouTube</a></div></section><section class="copyright">Copyright © 2020 Zilliqa Research Pte. Ltd.</section></footer></div></body></html>
