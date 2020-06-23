@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Lookup · Zilliqa Developer Portal</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## API Server"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Lookup · Zilliqa Developer Portal"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ansnunez.github.io/dev-portal/"/><meta property="og:description" content="## API Server"/><meta property="og:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><link rel="shortcut icon" href="/dev-portal/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/dev-portal/js/scrollSpy.js"></script><link rel="stylesheet" href="/dev-portal/css/main.css"/><script src="/dev-portal/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/dev-portal/en"><img class="logo" src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal"/><h2 class="headerTitleWithLogo">Zilliqa Developer Portal</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/dev-portal/docs/en/basics-intro-blockchain" target="_self">Basics</a></li><li class=""><a href="/dev-portal/docs/en/dev-started-introduction" target="_self">Developers</a></li><li class=""><a href="/dev-portal/docs/en/mining-general-info" target="_self">Miners</a></li><li class=""><a href="/dev-portal/docs/en/staking-getting-started" target="_self">Exchanges</a></li><li class="siteNavGroupActive"><a href="/dev-portal/docs/en/contribute-buildzil" target="_self">Contributors</a></li><span><li><a id="languages-menu" href="#"><img class="languages-icon" src="/dev-portal/img/language.svg" alt="Languages icon"/>English</a><div id="languages-dropdown" class="hide"><ul id="languages-dropdown-items"><li><a href="/dev-portal/docs/zh-CN/core-lookup">中文</a></li></ul></div></li><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Lookup · Zilliqa Developer Portal</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## API Server"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Lookup · Zilliqa Developer Portal"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ansnunez.github.io/dev-portal/"/><meta property="og:description" content="## API Server"/><meta property="og:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://ansnunez.github.io/dev-portal/img/docusaurus.png"/><link rel="shortcut icon" href="/dev-portal/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/dev-portal/js/scrollSpy.js"></script><link rel="stylesheet" href="/dev-portal/css/main.css"/><script src="/dev-portal/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/dev-portal/en"><img class="logo" src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal"/><h2 class="headerTitleWithLogo">Zilliqa Developer Portal</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/dev-portal/docs/en/basics-intro-blockchain" target="_self">Basics</a></li><li class=""><a href="/dev-portal/docs/en/dev-started-introduction" target="_self">Developers</a></li><li class=""><a href="/dev-portal/docs/en/mining-general-info" target="_self">Miners</a></li><li class=""><a href="/dev-portal/docs/en/staking-getting-started" target="_self">Exchanges</a></li><li class=""><a href="/dev-portal/docs/en/contribute-buildzil" target="_self">Contributors</a></li><span><li><a id="languages-menu" href="#"><img class="languages-icon" src="/dev-portal/img/language.svg" alt="Languages icon"/>English</a><div id="languages-dropdown" class="hide"><ul id="languages-dropdown-items"><li><a href="/dev-portal/docs/zh-CN/core-lookup">中文</a></li></ul></div></li><script>
         const languagesMenuItem = document.getElementById("languages-menu");
         const languagesDropDown = document.getElementById("languages-dropdown");
         languagesMenuItem.addEventListener("click", function(event) {
@@ -10,63 +10,7 @@
             languagesDropDown.className = "hide";
           }
         });
-      </script></span></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Core Protocol Design</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Contributors</h3><ul class=""><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Contribution Guide</h4><ul><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/contribute-buildzil">Building Zilliqa</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/contribute-guidelines">Contribution Guidelines</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/contribute-bug-bounty">Bug Bounty Program</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Core Protocol Design</h4><ul><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-node-operation">General Node Operation</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-consensus">Consensus Layer</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-network">Network Layer</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-messaging">Messaging Layer</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-data">Data Layer</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-directory-service">Directory Service</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/dev-portal/docs/en/core-lookup">Lookup</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-mining">Mining</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-diagnostic-data">Diagnostic Data</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-status-server">Status Server</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-view-change">View Change</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-guard-mode">Guard Mode</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-rejoin-mechanism">Rejoin Mechanism</a></li><li class="navListItem"><a class="navItem" href="/dev-portal/docs/en/core-recovery-mechanism">Recovery Mechanism</a></li></ul></div></ul></div></div></section></div><script>
-            var coll = document.getElementsByClassName('collapsible');
-            var checkActiveCategory = true;
-            for (var i = 0; i < coll.length; i++) {
-              var links = coll[i].nextElementSibling.getElementsByTagName('*');
-              if (checkActiveCategory){
-                for (var j = 0; j < links.length; j++) {
-                  if (links[j].classList.contains('navListItemActive')){
-                    coll[i].nextElementSibling.classList.toggle('hide');
-                    coll[i].childNodes[1].classList.toggle('rotate');
-                    checkActiveCategory = false;
-                    break;
-                  }
-                }
-              }
-
-              coll[i].addEventListener('click', function() {
-                var arrow = this.childNodes[1];
-                arrow.classList.toggle('rotate');
-                var content = this.nextElementSibling;
-                content.classList.toggle('hide');
-              });
-            }
-
-            document.addEventListener('DOMContentLoaded', function() {
-              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
-              createToggler('#tocToggler', 'body', 'tocActive');
-
-              var headings = document.querySelector('.toc-headings');
-              headings && headings.addEventListener('click', function(event) {
-                var el = event.target;
-                while(el !== headings){
-                  if (el.tagName === 'A') {
-                    document.body.classList.remove('tocActive');
-                    break;
-                  } else{
-                    el = el.parentNode;
-                  }
-                }
-              }, false);
-
-              function createToggler(togglerSelector, targetSelector, className) {
-                var toggler = document.querySelector(togglerSelector);
-                var target = document.querySelector(targetSelector);
-
-                if (!toggler) {
-                  return;
-                }
-
-                toggler.onclick = function(event) {
-                  event.preventDefault();
-
-                  target.classList.toggle(className);
-                };
-              }
-            });
-        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Lookup</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="api-server"></a><a href="#api-server" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>API Server</h2>
+      </script></span></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Lookup</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="api-server"></a><a href="#api-server" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>API Server</h2>
 <h2><a class="anchor" aria-hidden="true" id="transaction-dispatch"></a><a href="#transaction-dispatch" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Transaction Dispatch</h2>
 <h3><a class="anchor" aria-hidden="true" id="steps"></a><a href="#steps" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Steps</h3>
 <ol>
@@ -80,87 +24,16 @@
 <li>The lookup use this receipt to tell the user the status of the txn.</li>
 </ol>
 <p><img src="../assets/core/features/transaction-dispatch/image01.png" alt="image01"></p>
-<h2><a class="anchor" aria-hidden="true" id="-incremental-db"></a><a href="#-incremental-db" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a># Incremental DB</h2>
-<p>This document describes the purpose behind incremental-db which levereges AWS S3 service and its implementation details.</p>
-<h3><a class="anchor" aria-hidden="true" id="description"></a><a href="#description" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Description</h3>
+<h2><a class="anchor" aria-hidden="true" id="status-server"></a><a href="#status-server" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Status Server</h2>
+<p>This API server runs on port 4301 by default on a node locally (i.e., cannot be accessed from outside).</p>
+<h3><a class="anchor" aria-hidden="true" id="available-methods"></a><a href="#available-methods" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Available Methods</h3>
 <ul>
-<li>The goal is to provide an efficient way to miners and seed nodes to get blockchain data in order to join the network.</li>
-</ul>
-<h3><a class="anchor" aria-hidden="true" id="purpose"></a><a href="#purpose" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Purpose</h3>
-<ul>
-<li>Basic idea would have been to upload or sync entire persistence to S3 bucket every TxEpoch. And new nodes fetch the entire persistence from S3 bucket.</li>
-<li>This would have been alright for all databases except for leveldb <code>state</code> because aws-cli sync for <code>state</code> database will result in uploading all file in the db which will be time consuming and not bandwidth efficient.</li>
-<li>Uploading of <code>state</code> leveldb for every TxEpoch is bottle neck and solution is to use <code>incremental-db</code>.</li>
-</ul>
-<p><strong>Note:</strong> <em>Its practically possible that all files in <code>stateDB</code> gets updated every TxEpoch if transactions in that epoch changes states of addresses which updates TrieDB across all files in levelDB.</em></p>
-<h3><a class="anchor" aria-hidden="true" id="building-blocks"></a><a href="#building-blocks" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Building Blocks</h3>
-<p>Following two scripts are main building blocks:</p>
-<h4><a class="anchor" aria-hidden="true" id="upload-incremental-db-script"></a><a href="#upload-incremental-db-script" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Upload Incremental DB script</h4>
-<p>This script <code>uploadIncrDB.py</code> runs on one of the lookup node. It performs following steps:</p>
-<ul>
-<li><p>Add Lock file to S3 bucket - <code>incremental</code></p></li>
-<li><p>Perform sync between local <code>persistence</code> on lookup node and <code>incremental\peristence</code> on S3 every TxEpoch. However, syncing criterias differs based on TxEpoch number.
-Following are possibilities:</p>
-<ul>
-<li><p>Script startup</p>
-<ul>
-<li>Clean both buckets i.e. <code>incremental</code> and <code>statedelta</code></li>
-<li>Sync entire persistence to S3 bucket - <code>incremental</code> (including <code>state, stateroot, txBlocks, txnBodies, txnBodiesTmp, microblock, etc</code> ( every thing that exists in persistence folder ) at every 10th vacuous epoch.</li>
-<li>Clean all statedeltas from S3 bucket - <code>statedelta</code></li>
-</ul></li>
-<li><p>Every 10th DS Epoch (first txEpoch from 10th DS epoch)</p>
-<ul>
-<li>Sync entire persistence to S3 bucket - <code>incremental</code> (including <code>state, stateroot, txBlocks, txnBodies, txnBodiesTmp, microblock, etc</code> ( every thing that exists in persistence folder ).</li>
-<li>Clean all statedeltas from S3 bucket - <code>statedelta</code></li>
-</ul></li>
-<li><p>Any other txEpoch</p>
-<ul>
-<li>Sync entire persistence to S3 bucket - <code>incremental</code> (excluding <code>state, stateroot, contractCode, contractStateData, contractStateIndex</code>) every txEpoch.</li>
-<li>If <code>current txBlkNum == vacuous epoch + 1</code>
-(i.e. first txBlock in current DS epoch e.g 100, 200, 300, ... ), we don't need to upload statedelta diff here. Instead complete stateDelta db is uploaded to S3 bucket - <code>statedelta</code> ( e.g. <code>stateDelta_100.tar.gz</code> ).
-Else upload the statedelta diff to S3 bucket - <code>statedelta</code> (e.g. <code>stateDelta_101.tar.gz, stateDelta_101.tar.gz, .... stateDelta_199.tar.gz</code>).</li>
-</ul></li>
-</ul></li>
-<li><p>Remove Lock file from S3 - <code>incremental</code>.</p></li>
-</ul>
-<h4><a class="anchor" aria-hidden="true" id="download-incremental-db-script"></a><a href="#download-incremental-db-script" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Download Incremental DB script</h4>
-<p>This script <code>downloadIncrDB.py</code> is first ran by every miner node or seed node to get latest block chain data. It perform following steps:</p>
-<ul>
-<li><p>Check if Lock file existed. Wait until no Lock file is found. Otherwise go to Step 2.</p></li>
-<li><p>Clean existing persistence, if any. And download Entire Persistence from S3 bucket - <code>incremental</code>.
-If node is <code>miner</code>, <code>microblocks</code> and <code>txBodies</code> are not downloaded.</p></li>
-<li><p>Check if Lock file existed. If yes, start again with step 1).</p></li>
-<li><p>Clean any <code>StateDeltasFromS3</code> folder. Download all statedeltas from S3 bucket - <code>statedelta</code> to <code>StateDeltasFromS3</code>.</p></li>
-</ul>
-<h4><a class="anchor" aria-hidden="true" id="joining-node"></a><a href="#joining-node" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Joining node</h4>
-<ul>
-<li><p>Node uses the <code>downloadIncrDB.py</code> to download the <code>peristence</code> from S3 bucket <code>incrementalDB</code> and all the state-deltas from S3 bucket <code>statedelta</code> to <code>StateDeltasFromS3</code>.</p></li>
-<li><p>Node startsup with downloaded <code>peristence</code> and starts syncup. After this, node has <strong>base state</strong> <code>say X</code>.</p></li>
-<li><p>Node then recreates latest state using state-deltas from <code>StateDeltasFromS3</code> (i.e.  <code>stateDelta_101.tar.gz, stateDelta_101.tar.gz, .... stateDelta_199.tar.gz, stateDelta_200.tar.gz, stateDelta_201.tar.gz, stateDelta_201.tar.gz, .... stateDelta_299.tar.gz</code> ).</p>
-<p>Final State <code>Y = X + x1 + x2 + ... + x99 + x100 + x101 + x102 + ...</code></p></li>
-</ul>
-<h2><a class="anchor" aria-hidden="true" id="multiplier"></a><a href="#multiplier" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Multiplier</h2>
-<p>This section describes the purpose of multiplier and some implementation details</p>
-<h3><a class="anchor" aria-hidden="true" id="purpose-1"></a><a href="#purpose-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Purpose</h3>
-<ul>
-<li>Node types <code>newlookup</code> and <code>level2lookup</code>  need new blocks data every time new txBlock is mined in order to be synced with progressing network.</li>
-<li>This new block data include <code>DSBlock</code>, <code>FinalBlock</code>, <code>Microblocks</code> and <code>Transactions</code> for new epoch.</li>
-<li>Multiplier plays a role of receiving above messages from network and forwarding them to <code>newlookup</code> and/or <code>level2lookup</code>.</li>
-</ul>
-<h3><a class="anchor" aria-hidden="true" id="brief"></a><a href="#brief" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Brief</h3>
-<ul>
-<li>Mainnet runs with <code>5</code> multiplier where each multiplier is configured to forward the messages to those nodes <code>&lt;IP:PORT&gt;</code> registered with them.</li>
-<li>Every multiplier say <code>multiplier-0</code> has corresponding <code>multiplier-0-downstreams.txt</code> which contains list of <code>&lt;IP:PORT&gt;</code> of nodes receiving forwarded messages.</li>
-<li>All <code>level2lookup</code> nodes are automatically registered with multiplier during bootstrap.</li>
-<li>All newly launched zilliqa controlled <code>newlookup</code> and exchanges <code>seed</code> nodes needs to be registered with any of the multipliers.</li>
-<li>Network nodes are aware of multiplier's <code>IP:PORT</code> from constants.xml since multipliers are always launced during bootstrap.</li>
-</ul>
-<h3><a class="anchor" aria-hidden="true" id="details"></a><a href="#details" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Details</h3>
-<ul>
-<li>Multiplier is a simple go program which basically listens at a particular port for incoming messages and forwards the message to forwarding list.</li>
-<li>It checks for any update in <code>multiplier-x-downstreams.txt</code> for new or deleted <code>&lt;IP:PORT&gt;</code> periodically. This enables us to add new seed nodes anytime.</li>
-<li>It uses hashes to ignore duplicate messsages from being received and forwarded.</li>
-<li>It retries sending message to destination <code>&lt;IP:PORT&gt;</code> for error <code>i/o timeout</code> which could happen due to network glitches on either ends.</li>
+<li><strong><code>AddToBlacklistExclusion</code></strong>: Can be used to add an API to the blacklist exclusion list (or whitelist).</li>
+<li><strong><code>RemoveFromBlacklistExclusion</code></strong>: Can be used to remove an API from the blacklist exclustion list.</li>
+<li><strong><code>GetNodeState</code></strong>: Used to get the state of the node, e.g., POW, COMMIT_DONE etc.</li>
+<li><strong><code>GetEpochFin</code></strong>: Tells the epoch number for the lookup for which the microblocks and txns have been received.</li>
+<li><strong><code>GetDSCommittee</code></strong>: Returns the list of IPs and PubKeys of the current DS Committee.</li>
+<li><strong><code>IsTxnInMemPool</code></strong>: Used to query local mempool of the nodes. Can tell, given a particular txnhash, if it is in mempool and why (e.g., nonce too high or gas price low).</li>
 </ul>
 <h2><a class="anchor" aria-hidden="true" id="websocket-server"></a><a href="#websocket-server" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Websocket Server</h2>
 <p>This page describes the protocol, between the Zilliqa Websocket Server and the sdk client, for querying subscription and message pushing.</p>
@@ -402,4 +275,86 @@ otherwise will return error message.</p>
 
 </code></pre>
 <p>And in the next tx block, the client won't be receiving <code>NewBlock</code> in notification</p>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/dev-portal/docs/en/core-directory-service"><span class="arrow-prev">← </span><span>Directory Service</span></a><a class="docs-next button" href="/dev-portal/docs/en/core-mining"><span>Mining</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#api-server">API Server</a></li><li><a href="#transaction-dispatch">Transaction Dispatch</a><ul class="toc-headings"><li><a href="#steps">Steps</a></li></ul></li><li><a href="#-incremental-db"># Incremental DB</a><ul class="toc-headings"><li><a href="#description">Description</a></li><li><a href="#purpose">Purpose</a></li><li><a href="#building-blocks">Building Blocks</a></li></ul></li><li><a href="#multiplier">Multiplier</a><ul class="toc-headings"><li><a href="#purpose-1">Purpose</a></li><li><a href="#brief">Brief</a></li><li><a href="#details">Details</a></li></ul></li><li><a href="#websocket-server">Websocket Server</a><ul class="toc-headings"><li><a href="#feature-workflow">Feature workflow</a></li><li><a href="#supported-query">Supported query</a></li><li><a href="#exception-handling">Exception handling</a></li><li><a href="#message-encoding">Message encoding</a></li><li><a href="#example">Example</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/dev-portal/" class="nav-home"><img src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal" width="66" height="70"/></a><div><h5>Links</h5><a href="https://www.github.com/Zilliqa" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://blog.zilliqa.com/" target="_blank" rel="noreferrer noopener">Medium</a><a href="https://twitter.com/zilliqa" target="_blank" rel="noreferrer noopener">Twitter</a><a href="https://discord.gg/XMRE9tt" target="_blank" rel="noreferrer noopener">Discord</a><a href="https://www.youtube.com/channel/UCvinnFbf0u71cajoxKcfZIQ" target="_blank" rel="noreferrer noopener">YouTube</a></div></section><section class="copyright">Copyright © 2020 Zilliqa Research Pte. Ltd.</section></footer></div></body></html>
+<h2><a class="anchor" aria-hidden="true" id="-incremental-db"></a><a href="#-incremental-db" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a># Incremental DB</h2>
+<p>This document describes the purpose behind incremental-db which levereges AWS S3 service and its implementation details.</p>
+<h3><a class="anchor" aria-hidden="true" id="description"></a><a href="#description" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Description</h3>
+<ul>
+<li>The goal is to provide an efficient way to miners and seed nodes to get blockchain data in order to join the network.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="purpose"></a><a href="#purpose" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Purpose</h3>
+<ul>
+<li>Basic idea would have been to upload or sync entire persistence to S3 bucket every TxEpoch. And new nodes fetch the entire persistence from S3 bucket.</li>
+<li>This would have been alright for all databases except for leveldb <code>state</code> because aws-cli sync for <code>state</code> database will result in uploading all file in the db which will be time consuming and not bandwidth efficient.</li>
+<li>Uploading of <code>state</code> leveldb for every TxEpoch is bottle neck and solution is to use <code>incremental-db</code>.</li>
+</ul>
+<p><strong>Note:</strong> <em>Its practically possible that all files in <code>stateDB</code> gets updated every TxEpoch if transactions in that epoch changes states of addresses which updates TrieDB across all files in levelDB.</em></p>
+<h3><a class="anchor" aria-hidden="true" id="building-blocks"></a><a href="#building-blocks" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Building Blocks</h3>
+<p>Following two scripts are main building blocks:</p>
+<h4><a class="anchor" aria-hidden="true" id="upload-incremental-db-script"></a><a href="#upload-incremental-db-script" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Upload Incremental DB script</h4>
+<p>This script <code>uploadIncrDB.py</code> runs on one of the lookup node. It performs following steps:</p>
+<ul>
+<li><p>Add Lock file to S3 bucket - <code>incremental</code></p></li>
+<li><p>Perform sync between local <code>persistence</code> on lookup node and <code>incremental\peristence</code> on S3 every TxEpoch. However, syncing criterias differs based on TxEpoch number.
+Following are possibilities:</p>
+<ul>
+<li><p>Script startup</p>
+<ul>
+<li>Clean both buckets i.e. <code>incremental</code> and <code>statedelta</code></li>
+<li>Sync entire persistence to S3 bucket - <code>incremental</code> (including <code>state, stateroot, txBlocks, txnBodies, txnBodiesTmp, microblock, etc</code> ( every thing that exists in persistence folder ) at every 10th vacuous epoch.</li>
+<li>Clean all statedeltas from S3 bucket - <code>statedelta</code></li>
+</ul></li>
+<li><p>Every 10th DS Epoch (first txEpoch from 10th DS epoch)</p>
+<ul>
+<li>Sync entire persistence to S3 bucket - <code>incremental</code> (including <code>state, stateroot, txBlocks, txnBodies, txnBodiesTmp, microblock, etc</code> ( every thing that exists in persistence folder ).</li>
+<li>Clean all statedeltas from S3 bucket - <code>statedelta</code></li>
+</ul></li>
+<li><p>Any other txEpoch</p>
+<ul>
+<li>Sync entire persistence to S3 bucket - <code>incremental</code> (excluding <code>state, stateroot, contractCode, contractStateData, contractStateIndex</code>) every txEpoch.</li>
+<li>If <code>current txBlkNum == vacuous epoch + 1</code>
+(i.e. first txBlock in current DS epoch e.g 100, 200, 300, ... ), we don't need to upload statedelta diff here. Instead complete stateDelta db is uploaded to S3 bucket - <code>statedelta</code> ( e.g. <code>stateDelta_100.tar.gz</code> ).
+Else upload the statedelta diff to S3 bucket - <code>statedelta</code> (e.g. <code>stateDelta_101.tar.gz, stateDelta_101.tar.gz, .... stateDelta_199.tar.gz</code>).</li>
+</ul></li>
+</ul></li>
+<li><p>Remove Lock file from S3 - <code>incremental</code>.</p></li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="download-incremental-db-script"></a><a href="#download-incremental-db-script" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Download Incremental DB script</h4>
+<p>This script <code>downloadIncrDB.py</code> is first ran by every miner node or seed node to get latest block chain data. It perform following steps:</p>
+<ul>
+<li><p>Check if Lock file existed. Wait until no Lock file is found. Otherwise go to Step 2.</p></li>
+<li><p>Clean existing persistence, if any. And download Entire Persistence from S3 bucket - <code>incremental</code>.
+If node is <code>miner</code>, <code>microblocks</code> and <code>txBodies</code> are not downloaded.</p></li>
+<li><p>Check if Lock file existed. If yes, start again with step 1).</p></li>
+<li><p>Clean any <code>StateDeltasFromS3</code> folder. Download all statedeltas from S3 bucket - <code>statedelta</code> to <code>StateDeltasFromS3</code>.</p></li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="joining-node"></a><a href="#joining-node" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Joining node</h4>
+<ul>
+<li><p>Node uses the <code>downloadIncrDB.py</code> to download the <code>peristence</code> from S3 bucket <code>incrementalDB</code> and all the state-deltas from S3 bucket <code>statedelta</code> to <code>StateDeltasFromS3</code>.</p></li>
+<li><p>Node startsup with downloaded <code>peristence</code> and starts syncup. After this, node has <strong>base state</strong> <code>say X</code>.</p></li>
+<li><p>Node then recreates latest state using state-deltas from <code>StateDeltasFromS3</code> (i.e.  <code>stateDelta_101.tar.gz, stateDelta_101.tar.gz, .... stateDelta_199.tar.gz, stateDelta_200.tar.gz, stateDelta_201.tar.gz, stateDelta_201.tar.gz, .... stateDelta_299.tar.gz</code> ).</p>
+<p>Final State <code>Y = X + x1 + x2 + ... + x99 + x100 + x101 + x102 + ...</code></p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="multiplier"></a><a href="#multiplier" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Multiplier</h2>
+<p>This section describes the purpose of multiplier and some implementation details</p>
+<h3><a class="anchor" aria-hidden="true" id="purpose-1"></a><a href="#purpose-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Purpose</h3>
+<ul>
+<li>Node types <code>newlookup</code> and <code>level2lookup</code>  need new blocks data every time new txBlock is mined in order to be synced with progressing network.</li>
+<li>This new block data include <code>DSBlock</code>, <code>FinalBlock</code>, <code>Microblocks</code> and <code>Transactions</code> for new epoch.</li>
+<li>Multiplier plays a role of receiving above messages from network and forwarding them to <code>newlookup</code> and/or <code>level2lookup</code>.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="brief"></a><a href="#brief" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Brief</h3>
+<ul>
+<li>Mainnet runs with <code>5</code> multiplier where each multiplier is configured to forward the messages to those nodes <code>&lt;IP:PORT&gt;</code> registered with them.</li>
+<li>Every multiplier say <code>multiplier-0</code> has corresponding <code>multiplier-0-downstreams.txt</code> which contains list of <code>&lt;IP:PORT&gt;</code> of nodes receiving forwarded messages.</li>
+<li>All <code>level2lookup</code> nodes are automatically registered with multiplier during bootstrap.</li>
+<li>All newly launched zilliqa controlled <code>newlookup</code> and exchanges <code>seed</code> nodes needs to be registered with any of the multipliers.</li>
+<li>Network nodes are aware of multiplier's <code>IP:PORT</code> from constants.xml since multipliers are always launced during bootstrap.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="details"></a><a href="#details" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Details</h3>
+<ul>
+<li>Multiplier is a simple go program which basically listens at a particular port for incoming messages and forwards the message to forwarding list.</li>
+<li>It checks for any update in <code>multiplier-x-downstreams.txt</code> for new or deleted <code>&lt;IP:PORT&gt;</code> periodically. This enables us to add new seed nodes anytime.</li>
+<li>It uses hashes to ignore duplicate messsages from being received and forwarded.</li>
+<li>It retries sending message to destination <code>&lt;IP:PORT&gt;</code> for error <code>i/o timeout</code> which could happen due to network glitches on either ends.</li>
+</ul>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#api-server">API Server</a></li><li><a href="#transaction-dispatch">Transaction Dispatch</a><ul class="toc-headings"><li><a href="#steps">Steps</a></li></ul></li><li><a href="#status-server">Status Server</a><ul class="toc-headings"><li><a href="#available-methods">Available Methods</a></li></ul></li><li><a href="#websocket-server">Websocket Server</a><ul class="toc-headings"><li><a href="#feature-workflow">Feature workflow</a></li><li><a href="#supported-query">Supported query</a></li><li><a href="#exception-handling">Exception handling</a></li><li><a href="#message-encoding">Message encoding</a></li><li><a href="#example">Example</a></li></ul></li><li><a href="#-incremental-db"># Incremental DB</a><ul class="toc-headings"><li><a href="#description">Description</a></li><li><a href="#purpose">Purpose</a></li><li><a href="#building-blocks">Building Blocks</a></li></ul></li><li><a href="#multiplier">Multiplier</a><ul class="toc-headings"><li><a href="#purpose-1">Purpose</a></li><li><a href="#brief">Brief</a></li><li><a href="#details">Details</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/dev-portal/" class="nav-home"><img src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal" width="66" height="70"/></a><div><h5>Links</h5><a href="https://www.github.com/Zilliqa" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://blog.zilliqa.com/" target="_blank" rel="noreferrer noopener">Medium</a><a href="https://twitter.com/zilliqa" target="_blank" rel="noreferrer noopener">Twitter</a><a href="https://discord.gg/XMRE9tt" target="_blank" rel="noreferrer noopener">Discord</a><a href="https://www.youtube.com/channel/UCvinnFbf0u71cajoxKcfZIQ" target="_blank" rel="noreferrer noopener">YouTube</a></div></section><section class="copyright">Copyright © 2020 Zilliqa Research Pte. Ltd.</section></footer></div></body></html>
