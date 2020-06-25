@@ -96,119 +96,33 @@
 </ol>
 <h3><a class="anchor" aria-hidden="true" id="procedure"></a><a href="#procedure" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Procedure</h3>
 <ol>
-<li><p>Consensus stalled during DS consensus or Final block consensus</p></li>
-<li><p>View change condition variable is triggered</p></li>
-<li><p>Enter view change consensus</p></li>
-<li><p><code>[Precheck]</code> Enter the precheck phase. DS nodes contact lookup to ask for new blocks</p></li>
-<li><p><code>[Precheck]</code> If no new blocks (DS and FB) is obtained, proceeds to do view change</p></li>
-<li><p><code>[Precheck]</code> Else, rejoin as a DS node</p></li>
-<li><p>All nodes calculate the new candidate leader index using <code>CalculateNewLeaderIndex()</code></p></li>
-<li><p><code>CalculateNewLeaderIndex()</code> calculates candidate leader index using</p>
+<li>Consensus stalled during DS consensus or Final block consensus</li>
+<li>View change condition variable is triggered</li>
+<li>Enter view change consensus</li>
+<li><code>[Precheck]</code> Enter the precheck phase. DS nodes contact lookup to ask for new blocks</li>
+<li><code>[Precheck]</code> If no new blocks (DS and FB) is obtained, proceeds to do view change</li>
+<li><code>[Precheck]</code> Else, rejoin as a DS node</li>
+<li>All nodes calculate the new candidate leader index using <code>CalculateNewLeaderIndex()</code></li>
+<li><code>CalculateNewLeaderIndex()</code> calculates candidate leader index using
 <pre><code class="hljs css language-text">H(finalblock or vc block hash, vc counter) % size (or num of DS guard)
 
 If a previous vc block (for current consensus) exists, use vc block hash. Else use final block hash. If new candidate leader index is current faulty leader, re-calculate using
 H(H(finalblock or vc block hash, vc counter)) repeatedly till an index is not the current faulty leader.
 </code></pre></li>
-<li><p>Candidate leader leads the consensus round</p></li>
-<li><p>Backups validate leader announcement</p></li>
-<li><p>View change consensus completed/stalled
-a. If stalled, wait for timeout and re-run view change consensus with a new candidate leader</p></li>
-<li><p>Remove faulty leaders (found in Faulty leader vector) from DS Committee</p></li>
-<li><p>Add faulty leaders (found in Faulty leader vector) to the back DS Committee (if not in guard mode)</p></li>
-<li><p>Recalculate <code>m_consensusMyID</code> by searching for own node inside the DS committee</p></li>
-<li><p>Set new DS <code>m_consensusLeaderID</code></p></li>
-<li><p>Store VC block to persistent storage</p></li>
-<li><p>If stalled consensus is at final block consensus, send the VC block to the lookup and shard nodes. Lookups and shard nodes update the ds composition respectively</p></li>
-<li><p>If stalled consensus is at DS block consensus, hold and collect VC block(s) to the lookup and shard nodes.</p></li>
-<li><p>Re-run stalled consensus (DS block or final block consensus). If re-run is at final block consensus, gas limit will be adjusted using exponential backoff algorithm.</p></li>
-<li><p>Consensus completed</p></li>
-<li><p>If DS block consensus, concatenate the DS block with VC block(s) and send to lookup and shard nodes</p></li>
-<li><p>Lookup and shard nodes will process VC block(s) linearly followed by DS block</p></li>
-</ol>
-<h3><a class="anchor" aria-hidden="true" id="test-scenario-setup"></a><a href="#test-scenario-setup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Test scenario setup</h3>
-<p>A total of 6 general view change tests is built into the codebase as macro. To perform the test,</p>
-<ol>
-<li><p>Remove the build folder</p></li>
-<li><p>For a single test scenario</p>
-<pre><code class="hljs css language-bash">./build.sh vc&lt;1-6&gt;
-</code></pre></li>
-<li><p>For multiple test scenario</p>
-<pre><code class="hljs css language-bash">./build.sh vc&lt;1-6&gt; vc&lt;1-6&gt;
-</code></pre></li>
-<li><p>Build twice as the <code>ccache</code> may be hindering the macros</p></li>
-</ol>
-<h3><a class="anchor" aria-hidden="true" id="general-test-scenario"></a><a href="#general-test-scenario" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>General test scenario</h3>
-<h4><a class="anchor" aria-hidden="true" id="single-failure"></a><a href="#single-failure" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Single failure</h4>
-<ol>
-<li><code>vc1</code> - DS leader stalled at DS block consensus</li>
-<li><code>vc3</code> - DS leader stalled at Final block consensus</li>
-</ol>
-<h4><a class="anchor" aria-hidden="true" id="multiple-failures-after-view-change-is-completed"></a><a href="#multiple-failures-after-view-change-is-completed" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Multiple failures (after view change is completed)</h4>
-<ol>
-<li><code>vc2</code> - DS leader stalls at DS block consensus and 2 candidate leaders stall at DS block consensus</li>
-<li><code>vc4</code> - DS leader stalls at Final block consensus and 2 candidate leaders stall at Final block consensus</li>
-</ol>
-<h4><a class="anchor" aria-hidden="true" id="multiple-failures-with-view-change-consensus-failure"></a><a href="#multiple-failures-with-view-change-consensus-failure" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Multiple failures (with view change consensus failure)</h4>
-<ol>
-<li><code>vc1 vc5</code> - DS leader stalls at DS block consensus and candidate leaders stall at View Change consensus</li>
-<li><code>vc3 vc5</code> - DS leader stalls at Final block consensus and candidate leader stall at View Change consensus</li>
-<li><code>vc1 vc6</code> - DS leader stalls at DS block consensus and 2 candidate leaders stall at View Change consensus</li>
-<li><code>vc3 vc6</code> - DS leader stalls at Final block consensus and 2 candidate leaders stall at View Change consensus</li>
-</ol>
-<h4><a class="anchor" aria-hidden="true" id="vc-pre-check-failed"></a><a href="#vc-pre-check-failed" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>VC Pre-check failed</h4>
-<ol>
-<li><code>vc7</code> - When a DS backup is lagged (ds epoch) and the whole network did not enter into view change, check whether the node will rejoin as DS or not. Node with <code>consensusMyID</code> 3 will stall for 45s and enter view change to simulate node lagging behind.</li>
-<li><code>vc8</code> - When a DS backup is lagged (tx epoch) and the whole network did not enter into view change, check whether the node will rejoin as DS or not. Node with <code>consensusMyID</code> 3 will stall for 45s and enter view change to simulate node lagging behind.</li>
-</ol>
-<h3><a class="anchor" aria-hidden="true" id="special-test-scenario"></a><a href="#special-test-scenario" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Special test scenario</h3>
-<p>Test plan for merging DS Microblock into FinalBlock consensus</p>
-<ol>
-<li><p>Objective: Check fetching missing txn
-Scenario : DS leader has some txn that one of the backups doesn't have
-Adoption : Letting one of the backups accept fewer txns from lookup comparing to the others</p></li>
-<li><p>Objective: Check View Change due to dsblock check failure within FinalBlock consensus
-Scenario : DS leader has some txn that all of backups don't have
-Adoption : Letting all of the backups accept fewer txns from lookup comparing to the leader</p></li>
-<li><p>Objective: Check fetching missing microblock
-Scenario : DS leader has more microblock received than one of the backups
-Adoption : Letting one of the backups refuse some Microblock submission</p></li>
-<li><p>Objective: Check View Change after fetching missing microblock
-Scenario : DS leader has more microblock received than all of the backups
-Adoption : Letting all of the backups refuse some Microblock submission</p></li>
-<li><p>Objective: Check View Change due to TxBlock check failure within FinalBlock consensus
-Scenario : DS leader composed invalid TxBlock
-Adoption : Done by composing wrong state root hash</p></li>
-</ol>
-<h3><a class="anchor" aria-hidden="true" id="test-macro"></a><a href="#test-macro" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Test macro</h3>
-<ol>
-<li><code>vc1</code> - stall at the start of ds consensus for 1 time</li>
-<li><code>vc2</code> - stall at the start of ds consensus for 3 times</li>
-<li><code>vc3</code> - stall at the start of final consensus for 1 time</li>
-<li><code>vc4</code> - stall at the start of final consensus for 3 times</li>
-<li><code>vc5</code> - stall at the start of vc consensus for 1 time</li>
-<li><code>vc6</code> - stall at the start of vc consensus for 2 times</li>
-<li><code>vc7</code> - Node with <code>consensusMyID 3</code> will stall for 45s and enter view change to simulate node lagging behind at DS block consensus. Node will precheck and rejoin as DS. Network will not undergo view change</li>
-<li><code>vc8</code> - Node with <code>consensusMyID 3</code> will stall for 45s and enter view change to simulate node lagging behind at Final block consensus. Node will precheck and rejoin as DS. Network will not undergo view change</li>
-<li><code>dm1</code> - letting one of the backups accept fewer txns from lookup comparing to the others</li>
-<li><code>dm2</code> - letting all of the backups accept fewer txns from lookup comparing to the leader</li>
-<li><code>dm3</code> - letting one of the backups refuse some Microblock submission</li>
-<li><code>dm4</code> - letting all of the backups refuse some Microblock submission</li>
-<li><code>dm5</code> - compose the wrong TxBlock, done by composing wrong state root hash in the TxBlock</li>
-<li><code>dm6</code> - compose the wrong DSMicroBlock, done by composing wrong tranhashes in the DSMicroBlock</li>
-<li><code>dm7</code> - letting the ds leader accept fewer txns from lookup comparing to the others</li>
-<li><code>dm8</code> - letting the ds leader and half of the ds committee members accept fewer txns from lookup comparing to the others</li>
-<li><code>dm9</code> - letting the ds leader and half of the ds committee members refuse some MicroBlock submission</li>
-</ol>
-<h3><a class="anchor" aria-hidden="true" id="known-issues"></a><a href="#known-issues" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Known issues</h3>
-<ol>
-<li><code>VC7</code> and <code>VC8</code> require uploading of persistent storage from lookup. However, this process is not automated. Hence, these two tests will require manual intervention.
-<ul>
-<li>Run test</li>
-<li>Upload lookup incremental DB at epoch 5</li>
-<li>Observe DS node with <code>consensusMyID</code> 3 goes into view change and pre-checking</li>
-<li>Check for invocation of <code>RejoinAsDS()</code> and <code>FinishRejoinAsDS()</code></li>
-</ul></li>
-<li><code>DM3</code> not working due to constant settings. This is not an issue</li>
-<li><code>DM8</code> and <code>DM9</code> cannot be accurately validated using script</li>
+<li>Candidate leader leads the consensus round</li>
+<li>Backups validate leader announcement</li>
+<li>View change consensus completed/stalled
+a. If stalled, wait for timeout and re-run view change consensus with a new candidate leader</li>
+<li>Remove faulty leaders (found in Faulty leader vector) from DS Committee</li>
+<li>Add faulty leaders (found in Faulty leader vector) to the back DS Committee (if not in guard mode)</li>
+<li>Recalculate <code>m_consensusMyID</code> by searching for own node inside the DS committee</li>
+<li>Set new DS <code>m_consensusLeaderID</code></li>
+<li>Store VC block to persistent storage</li>
+<li>If stalled consensus is at final block consensus, send the VC block to the lookup and shard nodes. Lookups and shard nodes update the ds composition respectively</li>
+<li>If stalled consensus is at DS block consensus, hold and collect VC block(s) to the lookup and shard nodes.</li>
+<li>Re-run stalled consensus (DS block or final block consensus). If re-run is at final block consensus, gas limit will be adjusted using exponential backoff algorithm.</li>
+<li>Consensus completed</li>
+<li>If DS block consensus, concatenate the DS block with VC block(s) and send to lookup and shard nodes</li>
+<li>Lookup and shard nodes will process VC block(s) linearly followed by DS block</li>
 </ol>
 </span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/dev-portal/docs/en/core-diagnostic-data"><span class="arrow-prev">← </span><span>Diagnostic Data</span></a><a class="docs-next button" href="/dev-portal/docs/en/core-guard-mode"><span>Guard Mode</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/dev-portal/" class="nav-home"><img src="/dev-portal/img/zilliqa-logo_1zilliqa-logo.png" alt="Zilliqa Developer Portal" width="66" height="70"/></a><div><h5>Links</h5><a href="https://www.github.com/Zilliqa" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://blog.zilliqa.com/" target="_blank" rel="noreferrer noopener">Medium</a><a href="https://twitter.com/zilliqa" target="_blank" rel="noreferrer noopener">Twitter</a><a href="https://discord.gg/XMRE9tt" target="_blank" rel="noreferrer noopener">Discord</a><a href="https://www.youtube.com/channel/UCvinnFbf0u71cajoxKcfZIQ" target="_blank" rel="noreferrer noopener">YouTube</a></div></section><section class="copyright">Copyright © 2020 Zilliqa Research Pte. Ltd.</section></footer></div></body></html>
