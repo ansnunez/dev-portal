@@ -108,26 +108,36 @@
 <li>Send request to all upper seeds to remove the node's IP address from their <a href="/dev-portal/docs/en/core-blacklist#relaxed-blacklist">relaxed blacklist</a></li>
 <li>Fetch the more recent DS blocks and Tx blocks from a random upper seed</li>
 <li>Separate threads process Tx blocks upon receipt, fetching the corresponding state deltas and calculating the current state for each one</li>
-<li>If the latest Tx block is for a non-vacuous epoch:</li>
+<li>If the latest Tx block is for a non-vacuous epoch:
+<ol>
 <li>Fetch the latest sharding structure from a random upper seed and check if this node is already part of a shard</li>
 <li>If it's not part of any shard, then it's considered a new miner, in which case continue to fetch recent blocks according to the earlier step</li>
-<li>If it's already part of a shard</li>
+<li>If it's already part of a shard
+<ol>
 <li>Set the shard parameters (members and ID)</li>
 <li>Change <code>m_syncType</code> to <code>NO_SYNC</code> and stop blocking messages</li>
 <li>Send request to shard peers for removal from relaxed blacklist</li>
 <li>Start next Tx epoch by initializing node variables (e.g., <code>m_consensusID</code>, <code>m_consensusLeaderID</code>, etc.), checking current role (i.e., shard leader or backup), initializing Rumor Manager, and proceeding with microblock consensus</li>
 <li>At this point the node has successfully rejoined the network as an existing shard node</li>
-<li>If the latest Tx block is for a vacuous epoch:</li>
+</ol></li>
+</ol></li>
+<li>If the latest Tx block is for a vacuous epoch:
+<ol>
 <li>Move state updates to disk after calculating the state</li>
 <li>Fetch latest DS committee information, and send request to a random upper seed to let this node know when to start PoW mining</li>
 <li>Start mining upon receiving the notification from the upper seed</li>
-<li>If the next DS block includes this node in the sharding information:</li>
+<li>If the next DS block includes this node in the sharding information:
+<ol>
 <li>Change <code>m_syncType</code> to <code>NO_SYNC</code> and stop blocking messages</li>
 <li>At this point the node has successfully joined the network as a new shard node</li>
-<li>If the node fails to receive the next DS block in time:</li>
+</ol></li>
+<li>If the node fails to receive the next DS block in time:
+<ol>
 <li>Fetch the latest DS block from a random upper seed</li>
 <li>If a new DS block was in fact created, it means this node lost PoW. Continue syncing until next vacuous epoch as done above</li>
 <li>If the node fails to get a new DS block from the upper seed, set <code>syncType = NORMAL_SYNC</code> and trigger <code>Node::RejoinAsNormal</code></li>
+</ol></li>
+</ol></li>
 </ol>
 <p>The node maintains a while loop within <code>Node::StartSynchronization()</code> while all the steps above are performed (except the relaxed blacklist removal request). It exits the while loop when <code>m_syncType</code> becomes <code>NO_SYNC</code>.</p>
 <h3><a class="anchor" aria-hidden="true" id="noderejoinasnormal"></a><a href="#noderejoinasnormal" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Node::RejoinAsNormal()</code></h3>
@@ -145,11 +155,13 @@
 </blockquote>
 <p>This procedure mirrors that of new node joining, with some differences:</p>
 <ol>
-<li>After recreating the current state, check if the node is part of the current DS committee. If yes:</li>
+<li>After recreating the current state, check if the node is part of the current DS committee. If yes:
+<ol>
 <li>Recreate the coinbase for all Tx blocks and microblocks from the start of the latest DS epoch</li>
 <li>Fetch missing cosignatures (needed for coinbase recreation) from a random upper seed</li>
 <li>Send request to all upper seeds for removal from relaxed blacklist</li>
 <li>Trigger <code>DirectoryService::RejoinAsDS()</code></li>
+</ol></li>
 <li>If the node is not part of the current DS committee, trigger <code>Node::RejoinAsNormal()</code></li>
 </ol>
 <h3><a class="anchor" aria-hidden="true" id="directoryservicerejoinasds"></a><a href="#directoryservicerejoinasds" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>DirectoryService::RejoinAsDS()</code></h3>
@@ -180,8 +192,10 @@
 <ol>
 <li>Fetch the more recent DS blocks and Tx blocks from a random upper seed</li>
 <li>Separate threads process Tx blocks upon receipt, fetching the corresponding state deltas and calculating the current state for each one</li>
-<li>If the latest Tx block is for a vacuous epoch:</li>
+<li>If the latest Tx block is for a vacuous epoch:
+<ol>
 <li>Move state updates to disk after calculating the state</li>
+</ol></li>
 <li>Fetch any microblocks from a random upper seed for newly received Tx blocks as well as for the last <code>N</code> Tx blocks read out from persistence</li>
 <li>Fetch the latest sharding structure from a random upper seed</li>
 <li>Set <code>syncType = NO_SYNC</code></li>
@@ -192,19 +206,25 @@
 <p>A seed node can potentially miss receiving a Tx block or DS block, in which case it goes out of sync and triggers <code>RejoinAsNewlookup</code> to rejoin.</p>
 <ol>
 <li>Set <code>syncType = NEW_LOOKUP_SYNC</code></li>
-<li>If the number of missing Tx blocks exceeds <code>NUM_FINAL_BLOCK_PER_POW</code>:</li>
+<li>If the number of missing Tx blocks exceeds <code>NUM_FINAL_BLOCK_PER_POW</code>:
+<ol>
 <li>Download latest persistence from AWS S3 incremental DB</li>
 <li>Retrieve the downloaded persistent storage</li>
 <li>Start synchronization using <code>Lookup::InitSync()</code></li>
-<li>If the number of missing Tx blocks does not exceed <code>NUM_FINAL_BLOCK_PER_POW</code>:</li>
+</ol></li>
+<li>If the number of missing Tx blocks does not exceed <code>NUM_FINAL_BLOCK_PER_POW</code>:
+<ol>
 <li>Start synchronization using <code>Lookup::StartSynchronization()</code></li>
+</ol></li>
 </ol>
 <h3><a class="anchor" aria-hidden="true" id="lookupstartsynchronization"></a><a href="#lookupstartsynchronization" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Lookup::StartSynchronization()</code></h3>
 <ol>
 <li>Fetch the more recent DS blocks and Tx blocks from a random upper seed</li>
 <li>Separate threads process Tx blocks upon receipt, fetching the corresponding state deltas and calculating the current state for each one</li>
-<li>If the latest Tx block is for a vacuous epoch:</li>
+<li>If the latest Tx block is for a vacuous epoch:
+<ol>
 <li>Move state updates to disk after calculating the state</li>
+</ol></li>
 <li>Fetch any microblocks from a random upper seed for newly received Tx blocks as well as for the last <code>N</code> Tx blocks read out from persistence</li>
 <li>Fetch the latest DS committee information from a random upper seed</li>
 <li>Set <code>syncType = NO_SYNC</code></li>
