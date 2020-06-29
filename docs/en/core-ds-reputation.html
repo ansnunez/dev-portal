@@ -70,7 +70,7 @@
 <p>The steps are:</p>
 <ol>
 <li>During DS Block consensus, the performance of each DS node is evaluated based on the rewards they received in the last DS epoch</li>
-<li>DS leader calls <code>DetermineByzantineNodes()</code> to find out which DS nodes underperformed (according to the criteria set in constants.xml). The public keys of these underperforming nodes are included in DS Block consensus announcement</li>
+<li>DS leader calls <code>DetermineByzantineNodes()</code> to find out which DS nodes underperformed (according to the criteria set in <code>constants.xml</code>). The public keys of these underperforming nodes are included in DS Block consensus announcement</li>
 <li>DS backup nodes call <code>VerifyRemovedByzantineNodes</code> when processing the announcement to verify that the DS nodes proposed for removal from the committee are really underperforming. Verification must pass for consensus to succeed; a view change will be triggered otherwise</li>
 <li>After DS Block consensus, the underperforming DS nodes are removed from the DS committee and the blockchain network. They will need to do PoW again to rejoin the network</li>
 </ol>
