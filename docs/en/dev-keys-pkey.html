@@ -71,8 +71,8 @@ DApp developers can allow their users to interact with their dApp by entering th
 <p>The following code snippet illustrates how to get the user private key from the encrypted keystore file.</p>
 <pre><code class="hljs css language-javascript"><span class="hljs-keyword">import</span> { decryptPrivateKey } <span class="hljs-keyword">from</span> <span class="hljs-string">'@zilliqa-js/crypto'</span>;
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">privKeyFromKeystore</span>(<span class="hljs-params"></span>) </span>{
-<span class="hljs-keyword">let</span> keystore = <span class="hljs-built_in">JSON</span>.parse(encryptedWallet); <span class="hljs-comment">//encryptedWallet is the encrypted keystore file</span>
-<span class="hljs-keyword">let</span> privKey = <span class="hljs-keyword">await</span> decryptPrivateKey(passphrase, keystore); <span class="hljs-comment">//passphrase variable has the passphrase of the encrypted wallet</span>
+    <span class="hljs-keyword">let</span> keystore = <span class="hljs-built_in">JSON</span>.parse(encryptedWallet); <span class="hljs-comment">//encryptedWallet is the encrypted keystore file</span>
+    <span class="hljs-keyword">let</span> privKey = <span class="hljs-keyword">await</span> decryptPrivateKey(passphrase, keystore); <span class="hljs-comment">//passphrase variable has the passphrase of the encrypted wallet</span>
 }
 </code></pre>
 <p>After we get the private key from the keystore file using <code>zilliqa-js/crypto</code> module, the subsequent steps for doing anything are same.</p>
