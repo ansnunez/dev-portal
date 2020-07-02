@@ -69,7 +69,7 @@
         </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Transaction Dispatch</h1></header><article><div><span><p>From creation to confirmation, a transaction lifecycle proceeds in the following sequence:</p>
 <ol>
 <li>An end user sends a <code>CreateTransaction</code> JSON request through the Zilliqa API. The transaction JSON contains the essential information about the transaction</li>
-<li>The seed node that receives the request validates its contents and converts it into the internal transaction format</li>
+<li>The seed node that receives the request validates its contents and converts it into the core's transaction definition format</li>
 <li>The seed node forwards this transaction (and other processed transaction requests) to a lookup node at intervals determined by <code>SEED_TXN_COLLECTION_TIME_IN_SEC</code></li>
 <li>The lookup node that receives the forwarded transaction decides which shard should process the transaction, and adds it to the transaction packet meant for that shard</li>
 <li>At the start of every Tx epoch (plus a short delay determined by <code>LOOKUP_DELAY_SEND_TXNPACKET_IN_MS</code>), the lookup node dispatches its transaction packets to all the shards (including the DS committee)</li>
